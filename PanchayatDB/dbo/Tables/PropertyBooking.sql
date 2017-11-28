@@ -1,0 +1,26 @@
+﻿CREATE TABLE [dbo].[PropertyBooking] (
+    [PropertyBookingID]  INT             IDENTITY (1, 1) NOT NULL,
+    [PropertyID]         INT             NOT NULL,
+    [Inward No]          VARCHAR (50)    NULL,
+    [TDate]              DATE            NULL,
+    [NameOfApplicant]    VARCHAR (100)   NULL,
+    [PhoneNo]            VARCHAR (15)    NULL,
+    [HDate]              DATE            NULL,
+    [AdvReceiptNo]       INT             NULL,
+    [AdvAmount]          DECIMAL (10, 2) NULL,
+    [SecurityDepositAmt] INT             NULL,
+    [ApplForSDRefund]    VARCHAR (250)   NULL,
+    [FullPayReceiptNo]   INT             NULL,
+    [FullPayAmount]      DECIMAL (10, 2) NULL,
+    [LuxTaxReceiptNo]    INT             NULL,
+    [RefundSDVoucherNo]  INT             NULL,
+    [PaymentOfLuxTax]    DECIMAL (10, 2) NULL,
+    [Remarks]            VARCHAR (250)   NULL,
+    CONSTRAINT [PK_CommunityHall] PRIMARY KEY CLUSTERED ([PropertyBookingID] ASC),
+    CONSTRAINT [FK_PropertyBooking_ToAdvReceipt] FOREIGN KEY ([AdvReceiptNo]) REFERENCES [dbo].[Form4] ([RecieptNo]),
+    CONSTRAINT [FK_PropertyBooking_ToFPReceipt] FOREIGN KEY ([FullPayReceiptNo]) REFERENCES [dbo].[Form4] ([RecieptNo]),
+    CONSTRAINT [FK_PropertyBooking_ToLTReceipt] FOREIGN KEY ([LuxTaxReceiptNo]) REFERENCES [dbo].[Form4] ([RecieptNo]),
+    CONSTRAINT [FK_PropertyBooking_ToProperty] FOREIGN KEY ([PropertyID]) REFERENCES [dbo].[Property] ([PropertyID]),
+    CONSTRAINT [FK_PropertyBooking_ToVoucher] FOREIGN KEY ([RefundSDVoucherNo]) REFERENCES [dbo].[Voucher] ([VoucherID])
+);
+
