@@ -1,0 +1,5 @@
+﻿CREATE TABLE [dbo].[WEBstatus]
+(
+	[WebStatusID] INT NOT NULL PRIMARY KEY IDENTITY, 
+    [Status] VARCHAR(50) NULL
+)

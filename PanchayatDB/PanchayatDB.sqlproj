@@ -313,5 +313,9 @@
       <AnsiNulls>On</AnsiNulls>
       <QuotedIdentifier>On</QuotedIdentifier>
     </Build>
+    <Build Include="dbo\Tables\WEBstatus.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <RefactorLog Include="PanchayatDB.refactorlog" />
   </ItemGroup>
 </Project>
