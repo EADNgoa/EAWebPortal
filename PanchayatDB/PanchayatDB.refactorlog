@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Operations Version="1.0" xmlns="http://schemas.microsoft.com/sqlserver/dac/Serialization/2012/02">
+  <Operation Name="Rename Refactor" Key="14abe7a2-123a-4570-9bf9-823e85d582cd" ChangeDateTime="11/29/2017 08:24:14">
+    <Property Name="ElementName" Value="[dbo].[IllegalConstruction].[StatusID]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[IllegalConstruction]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="WEBstatusID" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="6824d406-37e5-4b21-a9cd-4f77ccfdfb96" ChangeDateTime="11/30/2017 07:34:37">
+    <Property Name="ElementName" Value="[dbo].[IllegalConstruction].[UserID]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[IllegalConstruction]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="Id" />
+  </Operation>
+</Operations>

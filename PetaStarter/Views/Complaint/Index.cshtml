@@ -1,0 +1,115 @@
+﻿@model PagedList.IPagedList<PanchayatWebPortal.ComplainDet>
+@using PagedList.Mvc;
+
+
+<center>
+    @if (ViewBag.RegisterTypeID == 4)
+    {
+        <h2 class="section-to-print"><b>Illegal Construction</b></h2>
+
+    }
+    else
+    {
+        <h2 class="section-to-print"><b>Public Grivience</b></h2>
+
+    }
+
+   
+</center>
+
+<p>
+
+    @Html.ActionLink("Create New", "Manage",new {rt = ViewBag.RegisterTypeID })
+</p>
+<table class="table">
+    <tr>
+        <th>
+            Sr No
+        </th>
+        <th>
+          Date Of Complain
+        </th>
+        <th>
+            Name And Address Of Complaint
+        </th>
+        <th>
+            @if (ViewBag.RegisterTypeID == 4)
+            {
+                @:Name And Address of Person Doing illegal Construction
+            }
+            else
+            {
+                @:Name And Address of Person Doing Offence
+            }
+        </th>
+        <th>
+            @if (ViewBag.RegisterTypeID == 4)
+            {
+                @:Nature Of Consruction
+            }
+            else
+            {
+                @: Nature of Complaint
+            }
+           
+        </th>
+        <th>
+            @if (ViewBag.RegisterTypeID == 4)
+            {
+                @:Occasion Of Consruction
+            }
+            else
+            {
+                @:Occasion
+            }
+        </th>
+        <th>
+            Action Taken
+        </th>
+        <th>
+            Remarks
+        </th>
+        <th>
+            Status
+        </th>
+        <th></th>
+
+    </tr>
+    @{int i = 1; }
+@foreach (var item in ViewBag.IC) {
+    <tr>
+        <td>
+           @i
+        </td>
+        <td>
+           @(String.Format("{0:dd-MMM-yyyy}", item.DateOfComp))
+        </td>
+        <td>
+            @item.NameOfPr
+        </td>
+        <td>
+            @item.AddressOfPr
+        </td>
+        <td>
+            @item.NatOfCon
+        </td>
+        <td>
+            @item.OccasOfCons
+        </td>
+        <td>
+            @item.ActionTaken
+        </td>
+        <td>
+            @item.Remarks
+        </td>
+        <td>
+            @item.Status
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Manage", new { id=item.IllegalConID,rt = item.RegisterTypeID }) 
+        </td>
+    </tr>
+    i++;
+}
+
+</table>
