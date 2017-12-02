@@ -7,6 +7,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using PagedList;
 
 
 namespace PanchayatWebPortal.Controllers
@@ -15,16 +16,17 @@ namespace PanchayatWebPortal.Controllers
     public class ComplaintController : EAController
     {
         // GET: Clients
-        public ActionResult Index(int? page,int? rt ,string doc)
-
-        {
-            if (doc?.Length > 0) page = 1;
+        public ActionResult Index(int? page,int? rt) 
+        {            
             var id = User.Identity.GetUserId();
             ViewBag.RegisterTypeID = rt;
-    
-           ViewBag.IC= db.Fetch<ComplainDet>("Select IllegalConID,DateOfComp,NameOfPr,NatOfCon,AddressOfPr,OccasOfCons,ActionTaken,Remarks,RegisterTypeID,Status from IllegalConstruction ic inner join AspNetUsers asu on asu.Id = ic.UserID Inner Join WEbstatus ws on ws.WEBstatusID = ic.WEBstatusID Where RegisterTypeID = @0 and ic.UserID = @1 ", rt,id);
+
+            int pageSize = db.Fetch<int>("Select top 1 RowsPerPage from Config").FirstOrDefault();
+            int pageNumber = (page ?? 1);
+
+            var IC= db.Fetch<ComplainDet>("Select IllegalConID,DateOfComp,NameOfPr,NatOfCon,AddressOfPr,OccasOfCons,ActionTaken,Remarks,RegisterTypeID,Status from IllegalConstruction ic inner join AspNetUsers asu on asu.Id = ic.UserID Inner Join WEbstatus ws on ws.WEBstatusID = ic.WEBstatusID Where RegisterTypeID = @0 and ic.UserID = @1 ", rt,id);
            
-            return View("Index")
+            return View(IC.ToPagedList(pageNumber, pageSize))
             ;
 
         }
