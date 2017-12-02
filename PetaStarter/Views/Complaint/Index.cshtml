@@ -27,10 +27,10 @@
             Sr No
         </th>
         <th>
-          Date Of Complain
+          Date Of Complaint
         </th>
         <th>
-            Name And Address Of Complaint
+            Your Name And Address
         </th>
         <th>
             @if (ViewBag.RegisterTypeID == 4)
@@ -76,7 +76,7 @@
 
     </tr>
     @{int i = 1; }
-@foreach (var item in ViewBag.IC) {
+@foreach (var item in Model) {
     <tr>
         <td>
            @i
@@ -113,3 +113,7 @@
 }
 
 </table>
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+@Html.PagedListPager(Model, page => Url.Action("Index",
+    new { page}))
