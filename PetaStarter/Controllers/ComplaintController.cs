@@ -24,7 +24,7 @@ namespace PanchayatWebPortal.Controllers
             int pageSize = db.Fetch<int>("Select top 1 RowsPerPage from Config").FirstOrDefault();
             int pageNumber = (page ?? 1);
 
-            var IC= db.Fetch<ComplainDet>("Select IllegalConID,DateOfComp,NameOfPr,NatOfCon,AddressOfPr,OccasOfCons,ActionTaken,Remarks,RegisterTypeID,Status from IllegalConstruction ic inner join AspNetUsers asu on asu.Id = ic.UserID Inner Join WEbstatus ws on ws.WEBstatusID = ic.WEBstatusID Where RegisterTypeID = @0 and ic.UserID = @1 ", rt,id);
+            var IC= db.Fetch<ComplainDet>("Select IllegalConID,DateOfComp,NameOfPr,NatOfCon,AddressOfPr,OccasOfCons,ActionTaken,Remarks,RegisterTypeID,Status from IllegalConstruction ic inner join AspNetUsers asu on asu.Id = ic.UserID Inner Join WEbstatus ws on ws.WEBstatusID = ic.WEBstatusID Where RegisterTypeID = @0 and ic.UserID = @1 Order By IllegalConID Desc", rt,id);
            
             return View(IC.ToPagedList(pageNumber, pageSize))
             ;
