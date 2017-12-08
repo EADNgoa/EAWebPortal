@@ -265,6 +265,7 @@ namespace PanchayatWebPortal
 		[Column] public decimal? ArrearsPerc { get; set; }
 		[Column] public int? RowsPerPage { get; set; }
 		[Column] public string PanchHead { get; set; }
+		[Column] public string PanchSeceretary { get; set; }
 	}
     
 	[TableName("dbo.Corrections")]
