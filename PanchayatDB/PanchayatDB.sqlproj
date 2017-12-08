@@ -314,6 +314,13 @@
       <QuotedIdentifier>On</QuotedIdentifier>
     </Build>
     <Build Include="dbo\Tables\WEBstatus.sql" />
+    <Build Include="dbo\Tables\MovementReg.sql" />
+    <Build Include="dbo\Tables\CashInHandReg.sql" />
+    <Build Include="dbo\Tables\PovertyCertificate.sql" />
+    <Build Include="dbo\Tables\CertificateRequirements.sql" />
+    <Build Include="dbo\Tables\CertSupportDocs.sql" />
+    <Build Include="dbo\Tables\ResidenceCertificate.sql" />
+    <Build Include="dbo\Tables\HouseTaxCert.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="PanchayatDB.refactorlog" />

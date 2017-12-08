@@ -1,0 +1,105 @@
+﻿@model PagedList.IPagedList<PanchayatWebPortal.ResidenceCert>
+@using PagedList.Mvc;
+
+
+<center>
+   
+        <h2 class="section-to-print"><b>Residence Certificate</b></h2>
+
+ 
+
+
+   
+</center>
+
+<p>
+
+    @Html.ActionLink("Create New", "ResManage",new {rt = ViewBag.RegisterTypeID })
+</p>
+<table class="table">
+    <tr>
+        <th>
+         Sr No
+        </th>
+        <th>
+        Name
+        </th>
+        <th>
+         Birth Date
+        </th>
+        <th>
+         Birth Place
+        </th>
+        <th>
+         Name Of Mother
+        </th>
+        <th>
+         Name Of Father
+        </th>
+        <th>
+        Address          
+        </th>
+        <th>
+        Living From
+        </th>
+        <th>
+        Till Date
+        </th>
+        <th>
+         IsDead?
+        </th>
+        <th>
+         Status
+        </th>
+      
+        <th></th>
+
+    </tr>
+    @{int i = 1; }
+@foreach (var item in Model) {
+    <tr>
+        <td>
+           @i
+        </td>
+     
+        <td>
+            @item.PersonName
+        </td>
+        <td>
+            @(String.Format("{0:dd-mm-yyyy}", item.BirthDate))
+           
+        </td>
+        <td>
+            @item.BirthPlace
+        </td>
+        <td>
+            @item.NameOfMother
+        </td>
+        <td>
+            @item.NameOfMother
+        </td>
+        <td>
+            @item.Address
+        </td>
+        <td>
+            @(String.Format("{0:dd-mm-yyyy}", item.FromDate))        </td>
+        <td>
+            @(String.Format("{0:dd-mm-yyyy}", item.TillDate))        </td>
+        <td>
+            @item.IsDead
+        </td>
+        <td>
+            @item.Status
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "ResManage", new { id=item.ResidenceCertificateID,rt = item.RegisterTypeID }) 
+        </td>
+    </tr>
+    i++;
+}
+
+</table>
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+@Html.PagedListPager(Model, page => Url.Action("Index",
+    new { page}))

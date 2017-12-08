@@ -195,6 +195,20 @@ namespace PanchayatWebPortal
 		[Column] public int? ReceiptNo { get; set; }
 	}
     
+	[TableName("dbo.CashInHandReg")]
+	[PrimaryKey("CashInHandRegID")]
+	[ExplicitColumns]
+    public partial class CashInHandReg  
+    {
+		[Column] public int CashInHandRegID { get; set; }
+		[Column] public DateTime? Tdate { get; set; }
+		[Column] public string NameAndDesg { get; set; }
+		[Column] public decimal? CashToDeclareStart { get; set; }
+		[Column] public string DetailsOfCashExp { get; set; }
+		[Column] public decimal? CashToDeclareEnd { get; set; }
+		[Column] public string Remarks { get; set; }
+	}
+    
 	[TableName("dbo.CBRunning")]
 	[PrimaryKey("EntryDate", AutoIncrement=false)]
 	[ExplicitColumns]
@@ -204,6 +218,28 @@ namespace PanchayatWebPortal
 		[Column] public decimal? TotalInflow { get; set; }
 		[Column] public decimal? TotalOutflow { get; set; }
 		[Column] public decimal? CBTotal { get; set; }
+	}
+    
+	[TableName("dbo.CertificateRequirements")]
+	[PrimaryKey("CertificateRequirementID")]
+	[ExplicitColumns]
+    public partial class CertificateRequirement  
+    {
+		[Column] public int CertificateRequirementID { get; set; }
+		[Column] public int? RegisterTypeID { get; set; }
+		[Column] public string CertificateName { get; set; }
+	}
+    
+	[TableName("dbo.CertSupportDocs")]
+	[PrimaryKey("CertSupportDocsID")]
+	[ExplicitColumns]
+    public partial class CertSupportDoc  
+    {
+		[Column] public int CertSupportDocsID { get; set; }
+		[Column] public int? CertificateRequirementID { get; set; }
+		[Column] public int? RegisterTypeID { get; set; }
+		[Column] public int? CertificateID { get; set; }
+		[Column] public string DocumentName { get; set; }
 	}
     
 	[TableName("dbo.Citizen")]
@@ -228,6 +264,7 @@ namespace PanchayatWebPortal
 		[Column] public decimal? DemandIncPerc { get; set; }
 		[Column] public decimal? ArrearsPerc { get; set; }
 		[Column] public int? RowsPerPage { get; set; }
+		[Column] public string PanchHead { get; set; }
 	}
     
 	[TableName("dbo.Corrections")]
@@ -362,6 +399,26 @@ namespace PanchayatWebPortal
 		[Column] public string HouseNo { get; set; }
 	}
     
+	[TableName("dbo.HouseTaxCert")]
+	[PrimaryKey("HouseTaxCertID")]
+	[ExplicitColumns]
+    public partial class HouseTaxCert  
+    {
+		[Column] public int HouseTaxCertID { get; set; }
+		[Column] public string PersonName { get; set; }
+		[Column] public string WardNo { get; set; }
+		[Column] public string PersonAddress { get; set; }
+		[Column] public DateTime? Tdate { get; set; }
+		[Column] public DateTime? MeetingDate { get; set; }
+		[Column] public string PrevPersonName { get; set; }
+		[Column] public int? Fees { get; set; }
+		[Column] public string DeveloperName { get; set; }
+		[Column] public string DeveloperAddress { get; set; }
+		[Column] public string UserID { get; set; }
+		[Column] public int? RegisterTypeID { get; set; }
+		[Column] public int? WEBstatusID { get; set; }
+	}
+    
 	[TableName("dbo.IllegalConstruction")]
 	[PrimaryKey("IllegalConID")]
 	[ExplicitColumns]
@@ -494,6 +551,18 @@ namespace PanchayatWebPortal
 		[Column] public int RegisterTypeID { get; set; }
 	}
     
+	[TableName("dbo.MovementReg")]
+	[PrimaryKey("MovementRegID")]
+	[ExplicitColumns]
+    public partial class MovementReg  
+    {
+		[Column] public int MovementRegID { get; set; }
+		[Column] public string NameAndDes { get; set; }
+		[Column] public DateTime? TimeOfDeparture { get; set; }
+		[Column] public DateTime? TimeOfReturn { get; set; }
+		[Column] public string PlaceAndPurpose { get; set; }
+	}
+    
 	[TableName("dbo.Noc")]
 	[PrimaryKey("NocID")]
 	[ExplicitColumns]
@@ -539,6 +608,22 @@ namespace PanchayatWebPortal
 		[Column] public int ToYr { get; set; }
 	}
     
+	[TableName("dbo.PovertyCertificate")]
+	[PrimaryKey("PovertyCertificateID")]
+	[ExplicitColumns]
+    public partial class PovertyCertificate  
+    {
+		[Column] public int PovertyCertificateID { get; set; }
+		[Column] public int? RegisterTypeID { get; set; }
+		[Column] public string PersonName { get; set; }
+		[Column] public string OtherName { get; set; }
+		[Column] public string PersonAddress { get; set; }
+		[Column] public string RequestedBy { get; set; }
+		[Column] public string AddOfPerReqBy { get; set; }
+		[Column] public string UserID { get; set; }
+		[Column] public int? WEBstatusID { get; set; }
+	}
+    
 	[TableName("dbo.Property")]
 	[PrimaryKey("PropertyID")]
 	[ExplicitColumns]
@@ -580,6 +665,27 @@ namespace PanchayatWebPortal
     {
 		[Column] public int RegisterTypeID { get; set; }
 		[Column("RegisterType")] public string _RegisterType { get; set; }
+	}
+    
+	[TableName("dbo.ResidenceCertificate")]
+	[PrimaryKey("ResidenceCertificateID")]
+	[ExplicitColumns]
+    public partial class ResidenceCertificate  
+    {
+		[Column] public int ResidenceCertificateID { get; set; }
+		[Column] public string PersonName { get; set; }
+		[Column] public DateTime? BirthDate { get; set; }
+		[Column] public string BirthPlace { get; set; }
+		[Column] public string NameOfMother { get; set; }
+		[Column] public string NameOfFather { get; set; }
+		[Column] public string Address { get; set; }
+		[Column] public DateTime? TDate { get; set; }
+		[Column] public DateTime? FromDate { get; set; }
+		[Column] public DateTime? TillDate { get; set; }
+		[Column] public bool? IsDead { get; set; }
+		[Column] public string UserID { get; set; }
+		[Column] public int? RegisterTypeID { get; set; }
+		[Column] public int? WebStatusID { get; set; }
 	}
     
 	[TableName("dbo.RVdetails")]

@@ -15,6 +15,7 @@ namespace PanchayatWebPortal
     {
     }
 
+
     //[MetadataType(typeof(ConfigMetadata))]
     //public partial class Config
     //{
