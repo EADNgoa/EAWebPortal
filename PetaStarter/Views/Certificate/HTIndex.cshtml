@@ -3,7 +3,7 @@
 
 
 <center>  
-    @if(ViewBag.RegisterTypeID == 27) {
+    @if (ViewBag.RegisterTypeID == 27) {
 
         <h2 ><b>House Tax Transfer</b></h2>  
     }
@@ -31,7 +31,7 @@
 
 <p>
 
-    @Html.ActionLink("Create New", "HTManage",new {rt = ViewBag.RegisterTypeID })
+    @Html.ActionLink("Create New", "HTManage", new { rt = ViewBag.RegisterTypeID })
 </p>
 <table class="table">
     <tr>
@@ -59,7 +59,7 @@
         <th>
          Person Address
         </th>
-@if (ViewBag.RegisterTypeID != 28 && ViewBag.RegisterTypeID != 29 )
+@if (ViewBag.RegisterTypeID != 28 && ViewBag.RegisterTypeID != 29)
 {
         <th>
           Date
@@ -91,6 +91,7 @@
             Developer Name
         </th>
     }
+
     if (ViewBag.RegisterTypeID == 31)
     {
         <th>
@@ -102,11 +103,12 @@
         <th>
         Developers Address
         </th>  
-    } 
+    }
+}
         <th>
          Status
         </th>
-      
+
         <th></th>
 
     </tr>
@@ -155,17 +157,18 @@
             <td>
                 @item.DeveloperAddress
             </td>
-         }
+        }
 
         <td>
             @item.Status
         </td>
         <td>
-            @Html.ActionLink("Edit", "HTManage", new { id=item.HouseTaxCertID,rt = item.RegisterTypeID }) 
+            @Html.ActionLink("Edit", "HTManage", new { id = item.HouseTaxCertID, rt = item.RegisterTypeID }) 
         </td>
     </tr>
     i++;
 }
+            } 
 
 </table>
 Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
