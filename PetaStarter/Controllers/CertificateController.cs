@@ -257,31 +257,82 @@ namespace PanchayatWebPortal.Controllers
         {
             ViewBag.CertReq = db.Fetch<CertificateRequirement>("select * From CertificateRequirements Where RegisterTypeID = @0", rt);
             var rec = base.BaseCreateEdit<HouseTaxCert>(id, "HouseTaxCertID");
-
+            ViewBag.RegisterTypeID = rt;
             if (id != null)
             {
-                HouseTaxCertDet res = new HouseTaxCertDet()
+                if (rt == 27)
                 {
-                    DeveloperAddress = rec.DeveloperAddress,
-                    DeveloperName = rec.DeveloperName,
-                    PersonAddress = rec.PersonAddress,
-                    Fees = (int)rec.Fees,
-                    HouseTaxCertID = rec.HouseTaxCertID,
-                    MeetingDate = (DateTime)rec.MeetingDate,
-                    PersonName = rec.PersonName,
-                    PrevPersonName = rec.PrevPersonName,
-                    RegisterTypeID = (int)rec.RegisterTypeID,
-                    Tdate = (DateTime)rec.Tdate,
-                    UserID = rec.UserID,
-                    WardNo = rec.WardNo,
-                    WEBstatusID = (int)rec.WEBstatusID
-                };
+                    HouseTaxCertDet res = new HouseTaxCertDet()
+                    {
+                        DeveloperAddress = rec.DeveloperAddress,
+                        DeveloperName = rec.DeveloperName,
+                        PersonAddress = rec.PersonAddress,
+                        Fees = (int)rec.Fees,
+                        HouseTaxCertID = rec.HouseTaxCertID,
+                        MeetingDate = (DateTime)rec.MeetingDate,
+                        PersonName = rec.PersonName,
+                        PrevPersonName = rec.PrevPersonName,
+                        RegisterTypeID = (int)rec.RegisterTypeID,
+                        Tdate = (DateTime)rec.Tdate,
+                        UserID = rec.UserID,
+                        WardNo = rec.WardNo,
+                        WEBstatusID = (int)rec.WEBstatusID
+                    };
 
-                return View(res);
+                    return View(res);
+                }
+           
+                if (rt == 29||rt == 30||rt == 28)
+                {
+                    HouseTaxCertDet res = new HouseTaxCertDet()
+                    {
+                        DeveloperAddress = "N/A",
+                        DeveloperName = "N/A",
+                        PersonAddress = rec.PersonAddress,
+                        Fees = (int)rec.Fees,
+                        HouseTaxCertID = rec.HouseTaxCertID,
+                        MeetingDate = (DateTime)rec.MeetingDate,
+                        PersonName = rec.PersonName,
+                        PrevPersonName = "N/A",
+                        RegisterTypeID = (int)rec.RegisterTypeID,
+                        Tdate = DateTime.Now,
+                        UserID = rec.UserID,
+                        WardNo = rec.WardNo,
+                        WEBstatusID = (int)rec.WEBstatusID
+                    };
+
+                    return View(res);
+
+                }
+                if (rt == 31)
+                {
+                    HouseTaxCertDet res = new HouseTaxCertDet()
+                    {
+                        DeveloperAddress = rec.DeveloperAddress,
+                        DeveloperName = rec.DeveloperName,
+                        PersonAddress = rec.PersonAddress,
+                        Fees = (int)rec.Fees,
+                        HouseTaxCertID = rec.HouseTaxCertID,
+                        MeetingDate = (DateTime)rec.MeetingDate,
+                        PersonName = rec.PersonName,
+                        PrevPersonName = "N/A",
+                        RegisterTypeID = (int)rec.RegisterTypeID,
+                        Tdate = DateTime.Now,
+                        UserID = rec.UserID,
+                        WardNo = rec.WardNo,
+                        WEBstatusID = (int)rec.WEBstatusID
+                    };
+
+                    return View(res);
+
+                }
+
+
+                return View();
             }
             else
             {
-                HouseTaxCert sp = new HouseTaxCert() { UserID = User.Identity.GetUserId(), RegisterTypeID = (int)rt, WEBstatusID = 1 };
+                HouseTaxCertDet sp = new HouseTaxCertDet() { UserID = User.Identity.GetUserId(), RegisterTypeID = (int)rt, WEBstatusID = 1 };
                 return View(sp);
             }
         }
