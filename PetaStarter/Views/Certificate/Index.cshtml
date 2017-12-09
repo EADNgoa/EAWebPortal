@@ -1,0 +1,84 @@
+﻿@model PagedList.IPagedList<PanchayatWebPortal.PovertyCert>
+@using PagedList.Mvc;
+
+
+<center>
+   
+        <h2 class="section-to-print"><b>Poverty Certificate</b></h2>
+
+ 
+
+
+   
+</center>
+
+<p>
+
+    @Html.ActionLink("Create New", "Manage",new {rt = ViewBag.RegisterTypeID })
+</p>
+<table class="table">
+    <tr>
+        <th>
+            Sr No
+        </th>
+        <th>
+        Name
+        </th>
+        <th>
+         Other Name
+        </th>
+        <th>
+           Address
+        </th>
+        <th>
+         Requested By
+        </th>
+        <th>
+            Address Of Person  Requested By
+        </th>
+        <th>
+         Status
+           
+        </th>
+      
+        <th></th>
+
+    </tr>
+    @{int i = 1; }
+@foreach (var item in Model) {
+    <tr>
+        <td>
+           @i
+        </td>
+     
+        <td>
+            @item.PersonName
+        </td>
+        <td>
+            @item.OtherName
+        </td>
+        <td>
+            @item.PersonAddress
+        </td>
+        <td>
+            @item.RequestedBy
+        </td>
+        <td>
+            @item.AddOfPerReq
+        </td>
+        <td>
+            @item.Status
+        </td>
+      
+        <td>
+            @Html.ActionLink("Edit", "Manage", new { id=item.PovertyCertificateID,rt = item.RegisterTypeID }) 
+        </td>
+    </tr>
+    i++;
+}
+
+</table>
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+@Html.PagedListPager(Model, page => Url.Action("Index",
+    new { page}))

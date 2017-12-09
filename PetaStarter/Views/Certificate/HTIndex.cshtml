@@ -1,0 +1,177 @@
+﻿@model PagedList.IPagedList<PanchayatWebPortal.HouseTaxCertDet>
+@using PagedList.Mvc;
+
+
+<center>  
+    @if (ViewBag.RegisterTypeID == 27) {
+
+        <h2 ><b>House Tax Transfer</b></h2>  
+    }
+    @if (ViewBag.RegisterTypeID == 28)
+    {
+
+        <h2><b>Trade</b></h2>
+    }
+    @if (ViewBag.RegisterTypeID == 29)
+    {
+
+        <h2><b>House Repair</b></h2>
+    }
+    @if (ViewBag.RegisterTypeID == 30)
+    {
+
+        <h2><b>Trade </b></h2>
+    }
+    @if (ViewBag.RegisterTypeID == 31)
+    {
+
+        <h2><b>Occupation Certificate</b></h2>
+    }
+</center>
+
+<p>
+
+    @Html.ActionLink("Create New", "HTManage", new { rt = ViewBag.RegisterTypeID })
+</p>
+<table class="table">
+    <tr>
+        <th>
+         Sr No
+        </th>
+        @if (ViewBag.RegisterTypeID != 29 && ViewBag.RegisterTypeID != 30 && ViewBag.RegisterTypeID != 31)
+        {
+            if (ViewBag.RegisterTypeID == 28)
+            {
+            <th>
+              Ref No
+            </th>
+            }
+            else
+            {
+                <th>
+                    Ward No
+                </th>
+            }
+        }
+        <th>
+        Person Name
+        </th>
+        <th>
+         Person Address
+        </th>
+@if (ViewBag.RegisterTypeID != 28 && ViewBag.RegisterTypeID != 29)
+{
+        <th>
+          Date
+        </th>
+}
+        <th>
+        Meeting Date
+        </th>
+@if (ViewBag.RegisterTypeID != 28 && ViewBag.RegisterTypeID != 29 && ViewBag.RegisterTypeID != 30 && ViewBag.RegisterTypeID != 31)
+{
+        <th>
+         Name Of house Tax Holder
+        </th>
+}
+        <th>
+        Fees          
+        </th>
+@if (ViewBag.RegisterTypeID != 28 && ViewBag.RegisterTypeID != 29 && ViewBag.RegisterTypeID != 30)
+{
+    if (ViewBag.RegisterTypeID == 31)
+    {
+        <th>
+         Name Of Your Bussiness
+        </th>
+    }
+    else
+    {
+        <th>
+            Developer Name
+        </th>
+    }
+
+    if (ViewBag.RegisterTypeID == 31)
+    {
+        <th>
+            Bussiness
+        </th>
+    }
+    else
+    {
+        <th>
+        Developers Address
+        </th>  
+    }
+}
+        <th>
+         Status
+        </th>
+
+        <th></th>
+
+    </tr>
+    @{int i = 1; }
+@foreach (var item in Model) {
+    <tr>
+        <td>
+           @i
+        </td>
+        @if (ViewBag.RegisterTypeID != 29 && ViewBag.RegisterTypeID != 30 && ViewBag.RegisterTypeID != 31)
+        {
+        <td>
+            @item.WardNo
+        </td>
+        }
+        <td>
+            @item.PersonName
+        </td>
+        <td>
+            @item.PersonAddress
+        </td>
+        @if (ViewBag.RegisterTypeID != 28 && ViewBag.RegisterTypeID != 29)
+        {
+                <td>
+                    @(String.Format("{0:dd-mm-yyyy}", item.Tdate))
+           
+                </td>
+        }
+        <td>
+            @(String.Format("{0:dd-mm-yyyy}", item.MeetingDate))
+        </td>
+        @if (ViewBag.RegisterTypeID != 28 && ViewBag.RegisterTypeID != 29 && ViewBag.RegisterTypeID != 30 && ViewBag.RegisterTypeID != 31)
+        {
+            <td>
+                @item.PrevPersonName
+            </td>
+        }
+        <td>
+            @item.Fees
+        </td>
+        @if (ViewBag.RegisterTypeID != 28 && ViewBag.RegisterTypeID != 29 && ViewBag.RegisterTypeID != 30)
+        {
+            <td>
+                @item.DeveloperName
+            </td>
+            <td>
+                @item.DeveloperAddress
+            </td>
+        }
+
+        <td>
+            @item.Status
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "HTManage", new { id = item.HouseTaxCertID, rt = item.RegisterTypeID }) 
+        </td>
+    </tr>
+    i++;
+}
+            
+
+</table>
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+@Html.PagedListPager(Model, page => Url.Action("Index",
+    new { page}))

@@ -1,0 +1,127 @@
+﻿@model  PovertyCert
+
+@{
+    ViewBag.Title = "Manage";
+}
+
+<h2>Manage</h2>
+
+
+@using (Html.BeginForm(Html.BeginForm(null, null, FormMethod.Post, new { enctype = "multipart/form-data" }))) 
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(model => model.UserID)
+    @Html.HiddenFor(model => model.RegisterTypeID)
+    @Html.HiddenFor(model => model.WEBstatusID)
+
+    <div class="form-horizontal">
+        @if (ViewBag.RegisterTypeID == 25)
+        {
+            <h4> Poverty Certificate</h4>
+        }
+    
+        <hr />
+
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @if (Model?.PovertyCertificateID >0)
+        {
+            @Html.HiddenFor(model => model.PovertyCertificateID)
+        }
+
+        <table class="table" style="width:300px;height:auto;margin-left:30px">
+            <thead><b>Document Requirements</b></thead>
+            <tr>
+                <td>
+
+                </td>
+                <th>
+                    Sr No
+                </th>
+                <th>
+                    Document Name
+                </th>
+            </tr>
+            @{int i = 1; }
+            @foreach (var item in ViewBag.CertReq)
+            {
+                <tr>
+                    <td></td>
+                    <td>
+                        @i
+                    </td>
+                    <td>
+                        @item.CertificateName
+                    </td>
+                </tr>
+                i++;
+            }
+
+
+        </table>
+        <br /><br />
+        <span>
+            <strong><u>Please fill your form:-</u></strong>
+        </span>
+        <br />
+        <br />
+        <div class="form-group">
+            <label class="control-label col-md-2">Name Of Person</label>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.PersonName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.PersonName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-2">Other Name</label>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.OtherName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.OtherName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+         <label class="control-label col-md-2">Address</label>          
+                  <div class="col-md-10">
+                @Html.EditorFor(model => model.PersonAddress, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.PersonAddress, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">      
+         <label  class="control-label col-md-2">Requested By</label>             
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.RequestedBy, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.RequestedBy, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-2">Address Of Person Who Requested By</label>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.AddOfPerReq, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.AddOfPerReq, "", new { @class = "text-danger" })
+            </div>
+        </div>
+      @if (Model.PovertyCertificateID == 0)
+      {
+       <div class="form-group">
+          <label class="control-label col-md-2">Upload Documents</label>
+           <div class="col-md-10">
+            <input class="form-control" type="file" id="UploadedFile" name="UploadedFile" />
+             <small>(Upload all your documents in zip folder)</small>
+          </div>
+      </div>
+      }
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index",new { rt = 25 })
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+@Scripts.Render("~/bundles/bootstrap")
+}

@@ -9,7 +9,7 @@
                 <span class="icon-bar"></span>
             </button>
             @*<a id="emblem" href="~/"><img src="~/Custom/Emblem.png" height=100px; alt="De Monte Hospitality" /> </a>*@
-            @Html.ActionLink("De Monte Hospitality", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            @Html.ActionLink("Panchayat Portal", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
         </div>
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
@@ -24,6 +24,23 @@
                     </ul>
                 </li>
 
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">Certificates<span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="~/Certificate/Index/?rt=25">Poverty </a></li>
+                        <li><a href="~/Certificate/ResIndex/?rt=26">Residence</a></li>
+                        <li><a href="~/Certificate/HTIndex/?rt=27">House Tax Transfer</a></li>
+                        <li><a href="~/Certificate/HTIndex/?rt=28">Trade</a></li>
+                        <li><a href="~/Certificate/HTIndex/?rt=30">Trade (II)</a></li>
+                        <li><a href="~/Certificate/HTIndex/?rt=29">House Repair</a></li>
+                        <li><a href="~/Certificate/HTIndex/?rt=31">Occupation Certificate</a></li>
+
+
+
+                        
+
+                    </ul>
+                </li>
 
                     </ul>
             @Html.Partial("_LoginPartial")
