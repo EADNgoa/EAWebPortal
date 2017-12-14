@@ -204,7 +204,9 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\OccupationCertDet.cs" />
     <Compile Include="Models\HouseTaxCertDet.cs" />
+    <Compile Include="Models\ConstructionCert.cs" />
     <Compile Include="Models\ResidenceCert.cs" />
     <Compile Include="Models\PovertyCert.cs" />
     <Compile Include="Models\Extensions.cs" />
@@ -364,6 +366,11 @@
     <Content Include="Views\Certificate\ResManage.cshtml" />
     <Content Include="Views\Certificate\HTIndex.cshtml" />
     <Content Include="Views\Certificate\HTManage.cshtml" />
+    <Content Include="Views\Certificate\ConstIndex.cshtml" />
+    <Content Include="Views\Certificate\ConstManage.cshtml" />
+    <Content Include="Views\Certificate\OccupIndex.cshtml" />
+    <Content Include="Views\Certificate\OccupManage.cshtml" />
+    <Content Include="Views\Certificate\OccupDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

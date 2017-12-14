@@ -282,11 +282,33 @@ namespace PanchayatWebPortal.Controllers
                     return View(res);
                 }
            
-                if (rt == 29||rt == 30||rt == 28)
+                if (rt == 29)
                 {
                     HouseTaxCertDet res = new HouseTaxCertDet()
                     {
                         DeveloperAddress = "N/A",
+                        DeveloperName = "N/A",
+                        PersonAddress = rec.PersonAddress,
+                        Fees = (int)rec.Fees,
+                        HouseTaxCertID = rec.HouseTaxCertID,
+                        MeetingDate = (DateTime)rec.MeetingDate,
+                        PersonName = rec.PersonName,
+                        PrevPersonName = "N/A",
+                        RegisterTypeID = (int)rec.RegisterTypeID,
+                        Tdate = DateTime.Now,
+                        UserID = rec.UserID,
+                        WardNo = rec.WardNo,
+                        WEBstatusID = (int)rec.WEBstatusID
+                    };
+
+                    return View(res);
+
+                }
+                if ( rt == 30 || rt == 28)
+                {
+                    HouseTaxCertDet res = new HouseTaxCertDet()
+                    {
+                        DeveloperAddress = rec.DeveloperAddress,
                         DeveloperName = "N/A",
                         PersonAddress = rec.PersonAddress,
                         Fees = (int)rec.Fees,
@@ -400,8 +422,286 @@ namespace PanchayatWebPortal.Controllers
             }
 
         }
+        public ActionResult ConstIndex(int? page, int? rt)
+        {
+            var id = User.Identity.GetUserId();
+            ViewBag.RegisterTypeID = rt;
+            int pageSize = db.Fetch<int>("Select top 1 RowsPerPage from Config").FirstOrDefault();
+            int pageNumber = (page ?? 1);
+            var RC = db.Fetch<ConstructionCert>("Select * from ConstLicenseCert pc inner join AspNetUsers asu on asu.Id = pc.UserID Inner Join WEbstatus ws on ws.WEBstatusID = pc.WEBstatusID Where RegisterTypeID = @0 and pc.UserID = @1 Order By ConstLicenseID Desc", rt, id);
+            return View(RC.ToPagedList(pageNumber, pageSize));
+        }
+
+        public ActionResult ConstManage(int? id, int? rt)
+        {
+            ViewBag.CertReq = db.Fetch<CertificateRequirement>("select * From CertificateRequirements Where RegisterTypeID = @0", rt);
+            var rec = base.BaseCreateEdit<ConstLicenseCert>(id, "ConstLicenseID");
+
+            if (id != null)
+            {
+                ConstructionCert res = new ConstructionCert()
+                {
+                   ConstFees=(decimal)rec.ConstFees,
+                   BuildingType= rec.BuildingType_,
+                   ConstLicenseID=rec.ConstLicenseID,
+                   DeveloperAddress=rec.DeveloperAddress,
+                   DeveloperName=rec.DeveloperName,
+                  SubDivision=rec.SubDivision,
+                  OwnwersAddress=rec.OwnwersAddress,
+        
+                   OrderNo= rec.OrderNo,
+                   OwnersOfHouse= rec.OwnersOfHouse,
+                   PropertyZone= rec.PropertyZone,
+                   RecieptDate=(DateTime)rec.RecieptDate,
+                   RecieptNo=rec.RecieptNo,
+                   RefDate= (DateTime)rec.RefDate,
+                   RefNo=rec.RefNo,
+                   RegisterTypeID=(int)rec.RegisterTypeID,
+                   SanitationFees=(decimal)rec.SanitationFees,
+                   SurveyNo=rec.SurveyNo,
+                   Tdate=(DateTime)rec.Tdate,
+                   UserID=rec.UserID,
+        
+                   WEBstatusID=(int)rec.WEBstatusID
+                };
+
+                return View(res);
+            }
+            else
+            {
+                ConstructionCert sp = new ConstructionCert() { UserID = User.Identity.GetUserId(), RegisterTypeID = (int)rt, WEBstatusID = 1 };
+                return View(sp);
+            }
+
+        }
+
+        // POST: Clients/Create
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult ConstManage([Bind(Include = "ConstLicenseID,OwnersOfHouse,MeetingDated,DeveloperName,DeveloperAddress,OwnersAddress,SubDivision,Owner,BuildingType,PropertyZone,SurveyNo,OrderNo,Tdate,RefNo,RefDate,ValidUpTo,RecieptNo,RecieptDate,ConstFees,SanitationFees,UserID,WEBstatusID,RegisterTypeID,UploadedFile")]  ConstructionCert construction)
+        {
+            using (var transaction = db.GetTransaction())
+            {
+                try
+                {
+                    if (construction.UploadedFile != null || construction.ConstLicenseID > 0)
+                    {
+
+                        ConstLicenseCert res = new ConstLicenseCert()
+                        {
+                            ConstFees = construction.ConstFees,
+                            BuildingType_ = construction.BuildingType,
+                            ConstLicenseID = construction.ConstLicenseID,
+                            OrderNo = construction.OrderNo,
+                            OwnersOfHouse = construction.OwnersOfHouse,
+                            PropertyZone = construction.PropertyZone,
+                            RecieptDate = construction.RecieptDate,
+                            RecieptNo = construction.RecieptNo,
+                            RefDate = construction.RefDate,
+                            RefNo = construction.RefNo,
+                            RegisterTypeID = construction.RegisterTypeID,
+                            SanitationFees =construction.SanitationFees,
+                            SurveyNo = construction.SurveyNo,
+                            Tdate = DateTime.Now.Date,
+                            UserID = construction.UserID,
+                            WEBstatusID = construction.WEBstatusID,
+                            DeveloperAddress = construction.DeveloperAddress,
+                            DeveloperName = construction.DeveloperName,
+                            SubDivision = construction.SubDivision,
+                            OwnwersAddress = construction.OwnwersAddress,
+
+                        };
+                        if (construction.ConstLicenseID == 0)
+                        {
+                            string fn = construction.UploadedFile.FileName.Substring(construction.UploadedFile.FileName.LastIndexOf('\\') + 1);
+                            fn = construction.OwnersOfHouse + "_" + fn;
+                            string SavePath = System.IO.Path.Combine(Server.MapPath("~/Images"), fn);
+                            construction.UploadedFile.SaveAs(SavePath);
+                            base.BaseSave<ConstLicenseCert>(res, construction.ConstLicenseID > 0);
+                            var item = new CertSupportDoc { RegisterTypeID = construction.RegisterTypeID, CertificateID = construction.ConstLicenseID, DocumentName = fn };
+                            db.Save(item);
+                        }
+                        else
+                        {
+                            //System.Drawing.Bitmap upimg = new System.Drawing.Bitmap(siteTransaction.UploadedFile.InputStream);
+                            //System.Drawing.Bitmap svimg = MyExtensions.CropUnwantedBackground(upimg);
+                            //svimg.Save(System.IO.Path.Combine(Server.MapPath("~/Images"), fn));
+                            base.BaseSave<ConstLicenseCert>(res, construction.ConstLicenseID > 0);
+
+                        }
 
 
+
+                        transaction.Complete();
+                    }
+                    return RedirectToAction("ConstIndex", new { rt = construction.RegisterTypeID });
+                }
+                catch (Exception ex)
+                {
+                    db.AbortTransaction();
+                    throw ex;
+                }
+
+
+            }
+
+        }
+        public ActionResult OccupIndex(int? page, int? rt)
+        {
+            var id = User.Identity.GetUserId();
+            ViewBag.RegisterTypeID = rt;
+
+            int pageSize = db.Fetch<int>("Select top 1 RowsPerPage from Config").FirstOrDefault();
+            int pageNumber = (page ?? 1);
+
+            var RC = db.Fetch<OccupationCertificate>("Select * from OccupationCertificate pc inner join AspNetUsers asu on asu.Id = pc.UserID Inner Join WEbstatus ws on ws.WEBstatusID = pc.WEBstatusID Where RegisterTypeID = @0 and pc.UserID = @1 Order By OccupationCertificateID Desc", rt, id);
+
+            return View(RC.ToPagedList(pageNumber, pageSize));
+
+
+        }
+        public ActionResult OccupManage(int? id, int? rt)
+        {
+            ViewBag.CertReq = db.Fetch<CertificateRequirement>("select * From CertificateRequirements Where RegisterTypeID = @0", rt);
+            var rec = base.BaseCreateEdit<OccupationCertificate>(id, "OccupationCertificateID");
+
+            if (id != null)
+            {
+                OccupationCertDet res = new OccupationCertDet()
+                {
+                  PersonAddress=rec.PersonAddress,
+                  BuildingDetails=rec.BuildingDetails,
+                  ConstLicNo=rec.ConstLicNo,
+                  HSref=rec.HSref,
+                  HSrefdate=(DateTime)rec.HSrefdate,
+                  OccupationCertificateID=rec.OccupationCertificateID,
+                  PersonName=rec.PersonName,
+                  PlotNumber=rec.PlotNumber,
+                  WEBstatusID=(int)rec.WEBstatusID,
+                  RefDate=(DateTime)rec.RefDate,
+                  RefNo=rec.RefNo,
+                  RegisterTypeID=(int)rec.RegisterTypeID,
+                  SurveyNo=rec.SurveyNo,
+                  Tdate=(DateTime)rec.Tdate,
+            
+                };
+                return View(res);
+            }
+            else
+            {
+                OccupationCertDet sp = new OccupationCertDet() { UserID = User.Identity.GetUserId(), RegisterTypeID = (int)rt, WEBstatusID = 1 };
+                return View(sp);
+            }
+
+        }
+
+        // POST: Clients/Create
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult OccupManage([Bind(Include = "OccupationCertificateID,PersonName,PersonAddress,MeetingDated,ConstLicNo,ConstLicDate,BuildingDetails,Tdate,SurveyNo,PlotNumber,RefNo,HSref,RefDate,HSrefdate,UserID,WEBstatusID,RegisterTypeID,UploadedFile")]  OccupationCertDet occupation)
+        {
+            using (var transaction = db.GetTransaction())
+            {
+                try
+                {
+                    if (occupation.UploadedFile != null || occupation.OccupationCertificateID > 0)
+                    {
+
+                        OccupationCertificate res = new OccupationCertificate()
+                        {
+                            PersonAddress = occupation.PersonAddress,
+                            BuildingDetails = occupation.BuildingDetails,
+                            ConstLicNo = occupation.ConstLicNo,
+                            ConstLicDate =occupation.ConstLicDate,
+
+                            HSref = occupation.HSref,
+                            HSrefdate = (DateTime)occupation.HSrefdate,
+                            OccupationCertificateID = occupation.OccupationCertificateID,
+                            PersonName = occupation.PersonName,
+                            PlotNumber = occupation.PlotNumber,
+                            WEBstatusID = (int)occupation.WEBstatusID,
+                            RefDate = (DateTime)occupation.RefDate,
+                            RefNo = occupation.RefNo,
+                            RegisterTypeID = (int)occupation.RegisterTypeID,
+                            SurveyNo = occupation.SurveyNo,
+                            Tdate = DateTime.Now,
+                            UserID=User.Identity.GetUserId()
+                        };
+                        if (occupation.OccupationCertificateID == 0)
+                        {
+
+                            string fn = occupation.UploadedFile.FileName.Substring(occupation.UploadedFile.FileName.LastIndexOf('\\') + 1);
+                            fn = occupation.PersonName + "_" + fn;
+                            string SavePath = System.IO.Path.Combine(Server.MapPath("~/Images"), fn);
+                            occupation.UploadedFile.SaveAs(SavePath);
+                            base.BaseSave<OccupationCertificate>(res, occupation.OccupationCertificateID > 0);
+
+                            var item = new CertSupportDoc { RegisterTypeID = occupation.RegisterTypeID, CertificateID = res.OccupationCertificateID, DocumentName = fn };
+                            db.Save(item);
+                        }
+                        else
+                        {
+                            //System.Drawing.Bitmap upimg = new System.Drawing.Bitmap(siteTransaction.UploadedFile.InputStream);
+                            //System.Drawing.Bitmap svimg = MyExtensions.CropUnwantedBackground(upimg);
+                            //svimg.Save(System.IO.Path.Combine(Server.MapPath("~/Images"), fn));
+                            base.BaseSave<OccupationCertificate>(res, occupation.OccupationCertificateID > 0);
+
+                        }
+
+
+
+                        transaction.Complete();
+                    }
+                    return RedirectToAction("OccupIndex", new { rt = occupation.RegisterTypeID });
+                }
+                catch (Exception ex)
+                {
+                    db.AbortTransaction();
+                    throw ex;
+                }
+
+
+            }
+
+        }
+
+        public ActionResult OccupDetails(int? id)
+        {
+            //ViewBag.OccupDets = base.BaseCreateEdit<OccupationCertDetail>(id, "OccupationCertDetailsID");
+
+            ViewBag.Dets = db.Fetch<OccupationCertDetail>("Select * from OccupationCertDetails Where OccupationCertificateID=@0",id);
+            ViewBag.OccupID = id;
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult OccupDetails([Bind(Include = "OccupationCertDetailsID,OccupationCertificateID,NameOfTheOwner,FlatNo,HouseNo,HouseTax,GarbageTax")] OccupationCertDetail occupationCert)
+        {
+          
+                    base.BaseSave<OccupationCertDetail>(occupationCert, occupationCert.OccupationCertDetailsID > 0);                   
+                    return RedirectToAction("OccupDetails", new { id = occupationCert.OccupationCertificateID });
+      
+        }
+        public ActionResult ManageDetails(int? id)
+        {
+            ViewBag.OccupDets = base.BaseCreateEdit<OccupationCertDetail>(id, "OccupationCertDetailsID");
+
+            ViewBag.OccupID = id;
+            return View("OccupDetails");
+        }
+
+        [HttpPost]
+        public ActionResult ManageDetails([Bind(Include = "OccupationCertDetailsID,OccupationCertificateID,NameOfTheOwner,FlatNo,HouseNo,HouseTax,GarbageTax")] OccupationCertDetail occupationCert)
+        {
+
+            base.BaseSave<OccupationCertDetail>(occupationCert, occupationCert.OccupationCertDetailsID > 0);
+            return RedirectToAction("OccupDetails", new { id = occupationCert.OccupationCertificateID });
+
+        }
         protected override void Dispose(bool disposing)
         {
             if (disposing)

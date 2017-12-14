@@ -268,6 +268,35 @@ namespace PanchayatWebPortal
 		[Column] public string PanchSeceretary { get; set; }
 	}
     
+	[TableName("dbo.ConstLicenseCert")]
+	[PrimaryKey("ConstLicenseID")]
+	[ExplicitColumns]
+    public partial class ConstLicenseCert  
+    {
+		[Column] public int ConstLicenseID { get; set; }
+		[Column] public string OwnersOfHouse { get; set; }
+		[Column] public string OwnwersAddress { get; set; }
+		[Column] public DateTime? MeetingDated { get; set; }
+		[Column("BuildingType ")] public string BuildingType_ { get; set; }
+		[Column] public string PropertyZone { get; set; }
+		[Column] public string SurveyNo { get; set; }
+		[Column] public string SubDivision { get; set; }
+		[Column] public string OrderNo { get; set; }
+		[Column] public DateTime? Tdate { get; set; }
+		[Column] public string RefNo { get; set; }
+		[Column] public DateTime? RefDate { get; set; }
+		[Column] public DateTime? ValidUpTo { get; set; }
+		[Column] public string RecieptNo { get; set; }
+		[Column] public DateTime? RecieptDate { get; set; }
+		[Column] public string DeveloperName { get; set; }
+		[Column] public string DeveloperAddress { get; set; }
+		[Column] public decimal? ConstFees { get; set; }
+		[Column] public decimal? SanitationFees { get; set; }
+		[Column] public int? RegisterTypeID { get; set; }
+		[Column] public int? WEBstatusID { get; set; }
+		[Column] public string UserID { get; set; }
+	}
+    
 	[TableName("dbo.Corrections")]
 	[PrimaryKey("CorrectionID")]
 	[ExplicitColumns]
@@ -580,6 +609,44 @@ namespace PanchayatWebPortal
 		[Column] public DateTime? DateOfComm { get; set; }
 		[Column] public string Remarks { get; set; }
 		[Column] public int? RegisterTypeID { get; set; }
+	}
+    
+	[TableName("dbo.OccupationCertDetails")]
+	[PrimaryKey("OccupationCertDetailsID")]
+	[ExplicitColumns]
+    public partial class OccupationCertDetail  
+    {
+		[Column] public int OccupationCertDetailsID { get; set; }
+		[Column] public int? OccupationCertificateID { get; set; }
+		[Column] public string NameOfTheOwner { get; set; }
+		[Column] public string FlatNo { get; set; }
+		[Column] public string HouseNo { get; set; }
+		[Column] public decimal? HouseTax { get; set; }
+		[Column] public decimal? GarbageTax { get; set; }
+	}
+    
+	[TableName("dbo.OccupationCertificate")]
+	[PrimaryKey("OccupationCertificateID")]
+	[ExplicitColumns]
+    public partial class OccupationCertificate  
+    {
+		[Column] public int OccupationCertificateID { get; set; }
+		[Column] public string PersonName { get; set; }
+		[Column] public string PersonAddress { get; set; }
+		[Column] public DateTime? MeetingDated { get; set; }
+		[Column] public string ConstLicNo { get; set; }
+		[Column] public string BuildingDetails { get; set; }
+		[Column] public DateTime? ConstLicDate { get; set; }
+		[Column] public DateTime? Tdate { get; set; }
+		[Column] public string SurveyNo { get; set; }
+		[Column] public string PlotNumber { get; set; }
+		[Column] public string RefNo { get; set; }
+		[Column] public DateTime? RefDate { get; set; }
+		[Column] public string HSref { get; set; }
+		[Column] public DateTime? HSrefdate { get; set; }
+		[Column] public int? RegisterTypeID { get; set; }
+		[Column] public int? WEBstatusID { get; set; }
+		[Column] public string UserID { get; set; }
 	}
     
 	[TableName("dbo.Outward")]
