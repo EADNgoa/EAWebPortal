@@ -1,0 +1,119 @@
+﻿@model PagedList.IPagedList<PanchayatWebPortal.ConstructionCert>
+@using PagedList.Mvc;
+
+
+<center>  
+        <h2 class="section-to-print"><b>Construction License</b></h2>  
+</center>
+
+<p>
+
+    @Html.ActionLink("Create New", "ConstManage",new {rt = ViewBag.RegisterTypeID })
+</p>
+<table class="table">
+    <tr>
+        <th>
+         Sr No
+        </th>
+        <th>
+        Owners Of House
+        </th>
+        <th>
+         Meeting Date
+        </th>
+        <th>
+        Building Type
+        </th>
+        <th>
+         Property Zone
+        </th>
+        <th>
+         Survey No
+        </th>
+        <th>
+        Order No          
+        </th>
+        <th>
+       Application Date
+        </th>
+        <th>
+        Ref No
+        </th>
+        <th>
+         Ref Date
+        </th>
+        <th>
+           Reciept No
+        </th>
+        <th>
+            Reciept Date
+        </th>
+        <th>
+            Construction Fees
+        </th>
+        <th>
+            Sanitation Fees
+        </th>
+        <th>
+         Status
+        </th>
+      
+        <th></th>
+
+    </tr>
+    @{int i = 1; }
+@foreach (var item in Model) {
+    <tr>
+        <td>
+           @i
+        </td>
+     
+        <td>
+            @item.OwnersOfHouse
+        </td>
+        <td>
+            @(String.Format("{0:dd-mm-yyyy}", item.MeetingDated))
+           
+        </td>
+        <td>
+            @item.BuildingType
+        </td>
+        <td>
+            @item.PropertyZone
+        </td>
+        <td>
+            @item.SurveyNo
+        </td>
+        <td>
+            @item.OrderNo
+        </td>
+        <td>
+            @(String.Format("{0:dd-mm-yyyy}", item.Tdate))        </td>
+        <td>
+            @item.RefNo
+        </td>
+        <td>
+            @(String.Format("{0:dd-mm-yyyy}", item.RefDate))          </td>
+        <td>
+            @item.RecieptNo
+        </td>
+        <td>
+            @(String.Format("{0:dd-mm-yyyy}", item.RecieptDate))        </td>
+        <td>
+            @item.ConstFees
+        </td>
+        <td>
+            @item.SanitationFees
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "ConstManage", new { id=item.ConstLicenseID,rt = item.RegisterTypeID }) 
+        </td>
+    </tr>
+    i++;
+}
+
+</table>
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+@Html.PagedListPager(Model, page => Url.Action("Index",
+    new { page}))

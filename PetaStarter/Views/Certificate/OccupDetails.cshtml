@@ -1,0 +1,128 @@
+﻿@model OccupationCertDetail
+<center>
+ 
+    <h2>Occcupancy Certificate</h2>
+    <table class="table-condensed">
+
+        @using (@Html.BeginForm())
+        {
+            if (ViewBag.OccupDets != null)
+            {
+                @Html.Hidden("OccupationCertDetailsID", (int)ViewBag.OccupDets.OccupationCertDetailsID)
+
+                @Html.Hidden("OccupationCertificateID", (int)ViewBag.OccupDets.OccupationCertificateID)
+                <tr>
+                    <td>@Html.Label("Name Of the Owner")</td>
+                    <td>@Html.TextBox("NameOfTheOwner", (string)ViewBag.OccupDets.NameOfTheOwner, new { @class = "form-control" })</td>
+                </tr>
+                <tr>
+                    <td>@Html.Label("Flat No")</td>
+                    <td>@Html.TextBox("FlatNo", (string)ViewBag.OccupDets.FlatNo, new { @class = "form-control" })</td>
+                </tr>
+                <tr>
+                    <td>@Html.Label("House No")</td>
+
+                    <td>@Html.TextBox("HouseNo", (string)ViewBag.OccupDets.HouseNo, new { @class = "form-control" })</td>
+                </tr>
+
+
+            }
+            else
+            {
+                if (ViewBag.OccupID != null)
+                {
+                    @Html.Hidden("OccupationCertificateID", (int)ViewBag.OccupID)
+
+                }
+                <tr class="section-to-Not-print">
+                    <td>@Html.Label("Name Of The Owner")</td>
+                    <td>@Html.Editor("NameOfTheOwner", new { htmlAttributes = new { @class = "form-control" } })</td>
+                </tr>
+
+                <tr class="section-to-Not-print">
+                    <td>@Html.Label("Flat No")</td>
+                    <td>@Html.Editor("FlatNo", new { htmlAttributes = new { @class = "form-control" } })</td>
+                </tr>
+
+                <tr class="section-to-Not-print">
+                    <td>@Html.Label("House No")</td>
+                    <td>@Html.Editor("HouseNo", new { htmlAttributes = new { @class = "form-control" } })</td>
+                </tr>
+              
+
+            }
+            <tr class="section-to-Not-print">
+                <td></td>
+
+                <td>
+                   
+                    <input type="submit" value="Submit" />
+                    <input action="action" onclick="window.history.go(-1); return false;" type="button" value="Back" />
+                </td>
+            </tr>
+        }
+    </table>
+</center><br class="section-to-Not-print" />
+@if (ViewBag.OccupDets == null)
+{
+    <table class="table section-to-print">
+        <tr>
+            <th>
+                Sr No
+            </th>
+            <th>
+                Name Of The Owner
+            </th>
+            <th>
+                Flat No
+            </th>
+            <th>
+                House Number
+            </th>
+            <th >
+               House Tax
+            </th>
+            <th >
+               Garbage Tax
+            </th>
+
+            <th>
+
+            </th>
+
+
+
+        </tr>
+        @{
+            int i = 1;}
+        @foreach (var item in ViewBag.Dets)
+        {
+            <tr>
+                <td>
+                    @i
+                </td>
+                <td>
+                    @item.NameOfTheOwner
+                </td>
+                <td>
+                    @item.FlatNo
+                </td>
+                <td>
+                    @item.HouseNo
+                </td>
+                <td>
+                    @item.HouseTax
+                </td>
+                <td>
+                    @item.GarbageTax
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "ManageDetails", new { id = item.OccupationCertDetailsID })
+                </td>
+            </tr>
+            i++;
+
+        }
+</table>
+   }
+            

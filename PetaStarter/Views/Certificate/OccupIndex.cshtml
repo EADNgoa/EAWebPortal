@@ -1,0 +1,122 @@
+﻿@model PagedList.IPagedList<PanchayatWebPortal.OccupationCertificate>
+@using PagedList.Mvc;
+
+
+<center>  
+        <h2 class="section-to-print"><b>Occupancy Certificate</b></h2>  
+</center>
+
+<p>
+
+    @Html.ActionLink("Create New", "OccupManage",new {rt = ViewBag.RegisterTypeID })
+</p>
+<table class="table">
+    <tr>
+        <th>
+         Sr No
+        </th>
+        <th>
+        Persosn Name
+        </th>
+        <th>
+         Person Address
+        </th>
+        <th>
+        Meeting Dated
+        </th>
+        <th>
+         Const Lic No
+        </th>
+        <th>
+            Const Lic Date
+        </th>
+        <th>
+         Application Date
+        </th>
+        <th>
+       Survey No       
+        </th>
+        <th>
+      Plot Number
+        </th>
+        <th>
+        Ref No
+        </th>
+        <th>
+         Ref Date
+        </th>
+        <th>
+           Health Service Ref No
+        </th>
+        <th>
+            Health Service Ref Date
+        </th>
+  
+        <th>
+         Status
+        </th>
+      
+        <th></th>
+
+    </tr>
+    @{int i = 1; }
+@foreach (var item in Model) {
+    <tr>
+        <td>
+           @i
+        </td>
+     
+        <td>
+            @item.PersonName
+        </td>
+        <td>
+            @item.PersonAddress
+        </td>
+        <td>
+            @(String.Format("{0:dd-mm-yyyy}", item.MeetingDated))
+           
+        </td>
+        <td>
+            @item.ConstLicNo
+        </td>
+        <td>
+            @item.ConstLicDate
+        </td>
+        <td>
+            @(String.Format("{0:dd-mm-yyyy}", item.Tdate))   
+        </td>
+      
+        <td>
+            @item.SurveyNo
+        </td>
+        <td>
+            @item.PlotNumber
+        </td>
+        <td>
+            @item.RefNo
+        </td>
+        <td>
+            @(String.Format("{0:dd-mm-yyyy}", item.RefDate))  
+        </td>
+        <td>
+            @item.HSref
+        </td>
+        <td>
+            @(String.Format("{0:dd-mm-yyyy}", item.HSrefdate)) 
+        </td>
+   
+        <td>
+            @Html.ActionLink("Edit", "OccupManage", new { id=item.OccupationCertificateID,rt = item.RegisterTypeID }) 
+            @Html.ActionLink("Details", "OccupDetails", new { id = item.OccupationCertificateID, rt = item.RegisterTypeID })
+
+
+        </td>
+    </tr>
+    i++;
+}
+
+</table>
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+@Html.PagedListPager(Model, page => Url.Action("Index",
+    new { page}))

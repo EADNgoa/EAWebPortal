@@ -77,19 +77,22 @@
         <th>
         Fees          
         </th>
-@if (ViewBag.RegisterTypeID != 28 && ViewBag.RegisterTypeID != 29 && ViewBag.RegisterTypeID != 30)
+@if ( ViewBag.RegisterTypeID != 29 )
 {
-    if (ViewBag.RegisterTypeID == 31)
+    if (ViewBag.RegisterTypeID != 28 && ViewBag.RegisterTypeID != 30)
     {
+        if (ViewBag.RegisterTypeID == 31)
+        {
         <th>
          Name Of Your Bussiness
         </th>
-    }
-    else
-    {
+        }
+        else
+        {
         <th>
             Developer Name
         </th>
+        }
     }
 
     if (ViewBag.RegisterTypeID == 31)
@@ -98,11 +101,23 @@
             Bussiness
         </th>
     }
+    else if(ViewBag.RegisterTypeID == 28)
+    {
+        <th>
+            Bussiness Location
+        </th>
+    }
+    else if (ViewBag.RegisterTypeID == 30)
+    {
+        <th>
+            Items To sell
+        </th>
+    }
     else
     {
         <th>
         Developers Address
-        </th>  
+        </th>
     }
 }
         <th>
@@ -149,11 +164,14 @@
         <td>
             @item.Fees
         </td>
-        @if (ViewBag.RegisterTypeID != 28 && ViewBag.RegisterTypeID != 29 && ViewBag.RegisterTypeID != 30)
+        @if ( ViewBag.RegisterTypeID != 29)
         {
+            if (ViewBag.RegisterTypeID != 28 && ViewBag.RegisterTypeID != 30)
+            {
             <td>
                 @item.DeveloperName
             </td>
+            }
             <td>
                 @item.DeveloperAddress
             </td>
