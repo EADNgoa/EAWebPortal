@@ -242,6 +242,26 @@ namespace PanchayatWebPortal
 		[Column] public string DocumentName { get; set; }
 	}
     
+	[TableName("dbo.CharacterCertificate")]
+	[PrimaryKey("CharacterID")]
+	[ExplicitColumns]
+    public partial class CharacterCertificate  
+    {
+		[Column] public int CharacterID { get; set; }
+		[Column] public string PersonName { get; set; }
+		[Column] public int? Age { get; set; }
+		[Column] public DateTime? Tdate { get; set; }
+		[Column] public string FatherName { get; set; }
+		[Column] public string MotherName { get; set; }
+		[Column] public string Address { get; set; }
+		[Column] public string WardOf { get; set; }
+		[Column] public int? KnownYears { get; set; }
+		[Column] public string PurposeOf { get; set; }
+		[Column] public string UserID { get; set; }
+		[Column] public int? WEBstatusID { get; set; }
+		[Column] public int? RegisterTypeID { get; set; }
+	}
+    
 	[TableName("dbo.Citizen")]
 	[PrimaryKey("CitizenID")]
 	[ExplicitColumns]
@@ -608,6 +628,24 @@ namespace PanchayatWebPortal
 		[Column] public string RejectedReason { get; set; }
 		[Column] public DateTime? DateOfComm { get; set; }
 		[Column] public string Remarks { get; set; }
+		[Column] public int? RegisterTypeID { get; set; }
+	}
+    
+	[TableName("dbo.NocCertifictes")]
+	[PrimaryKey("NocID")]
+	[ExplicitColumns]
+    public partial class NocCertificte  
+    {
+		[Column] public int NocID { get; set; }
+		[Column] public string Hno { get; set; }
+		[Column] public string No { get; set; }
+		[Column] public DateTime? AprovedDate { get; set; }
+		[Column] public DateTime? PrintDate { get; set; }
+		[Column] public string Address { get; set; }
+		[Column] public string PersonName { get; set; }
+		[Column] public string ElectDeptAdd { get; set; }
+		[Column] public string UserID { get; set; }
+		[Column] public int? WEBstatusID { get; set; }
 		[Column] public int? RegisterTypeID { get; set; }
 	}
     
