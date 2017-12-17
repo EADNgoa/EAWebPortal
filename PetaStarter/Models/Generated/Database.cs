@@ -786,8 +786,7 @@ namespace PanchayatWebPortal
 		[Column] public string NameOfFather { get; set; }
 		[Column] public string Address { get; set; }
 		[Column] public DateTime? TDate { get; set; }
-		[Column] public DateTime? FromDate { get; set; }
-		[Column] public DateTime? TillDate { get; set; }
+		[Column] public int? Since { get; set; }
 		[Column] public bool? IsDead { get; set; }
 		[Column] public string UserID { get; set; }
 		[Column] public int? RegisterTypeID { get; set; }

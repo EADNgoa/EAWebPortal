@@ -50,7 +50,7 @@ namespace PanchayatWebPortal.Controllers
                     WEBstatusID = (int)rec.WEBstatusID,
                     UserID =rec.UserID,
                     AddOfPerReq =rec.AddOfPerReqBy,
-                    OtherName =rec.OtherName
+                  
                     
                    
 
@@ -71,7 +71,7 @@ namespace PanchayatWebPortal.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Manage([Bind(Include = "PovertyCertificateID,PersonName,OtherName,PersonAddress,RequestedBy,AddOfPerReq,UserID,WEBstatusID,RegisterTypeID,UploadedFile")]  PovertyCert povertyCertificate)
+        public ActionResult Manage([Bind(Include = "PovertyCertificateID,PersonName,PersonAddress,RequestedBy,AddOfPerReq,UserID,WEBstatusID,RegisterTypeID,UploadedFile")]  PovertyCert povertyCertificate)
         {
             using (var transaction = db.GetTransaction())
             {
@@ -90,7 +90,7 @@ namespace PanchayatWebPortal.Controllers
                             WEBstatusID = povertyCertificate.WEBstatusID,
                             PovertyCertificateID =povertyCertificate.PovertyCertificateID,
                             AddOfPerReqBy =povertyCertificate.AddOfPerReq,
-                            OtherName =povertyCertificate.OtherName                           
+                                                       
                         };
                         if (povertyCertificate.PovertyCertificateID == 0)
                         {
@@ -154,14 +154,13 @@ namespace PanchayatWebPortal.Controllers
                     Address=rec.Address,
                     BirthDate= (DateTime)rec.BirthDate,
                     BirthPlace=rec.BirthPlace,
-                    FromDate= (DateTime)rec.FromDate,
+                    Since= (int)rec.Since,
                     NameOfFather=rec.NameOfFather,
                     NameOfMother=rec.NameOfMother,
                     PersonName=rec.PersonName,
                     IsDead=(bool)rec.IsDead,
                     RegisterTypeID=(int)rec.RegisterTypeID,
                     ResidenceCertificateID=rec.ResidenceCertificateID,
-                    TillDate= (DateTime)rec.TillDate,
                     UserID=rec.UserID,
                     WEBstatusID=(int)rec.WebStatusID
 
@@ -182,7 +181,7 @@ namespace PanchayatWebPortal.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult ResManage([Bind(Include = "ResidenceCertificateID,PersonName,BirthDate,BirthPlace,NameOfMother,NameOfFather,Address,FromDate,TillDate,IsDead,UserID,WEBstatusID,RegisterTypeID,UploadedFile")]  ResidenceCert residence)
+        public ActionResult ResManage([Bind(Include = "ResidenceCertificateID,PersonName,BirthDate,BirthPlace,NameOfMother,NameOfFather,Address,Since,IsDead,UserID,WEBstatusID,RegisterTypeID,UploadedFile")]  ResidenceCert residence)
         {
             using (var transaction = db.GetTransaction())
             {
@@ -196,14 +195,13 @@ namespace PanchayatWebPortal.Controllers
                             Address= residence.Address,
                             BirthDate= residence.BirthDate,
                             BirthPlace= residence.BirthPlace,
-                            FromDate= residence.FromDate,
+                            Since= residence.Since,
                             IsDead=residence.IsDead,
                             NameOfFather=residence.NameOfFather,
                             NameOfMother=residence.NameOfMother,
                             PersonName= residence.PersonName,
                             RegisterTypeID=residence.RegisterTypeID,
                             ResidenceCertificateID=residence.ResidenceCertificateID,
-                            TillDate=residence.TillDate,
                             UserID=residence.UserID,
                             WebStatusID=residence.WEBstatusID
                         };
