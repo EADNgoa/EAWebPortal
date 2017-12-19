@@ -14,8 +14,15 @@
     @Html.HiddenFor(model => model.RegisterTypeID)
     @Html.HiddenFor(model => model.WEBstatusID)
 
-    <div class="form-horizontal">      
-            <h4> No Objection Certificate</h4>  
+    <div class="form-horizontal"> 
+        @if (Model.RegisterTypeID == 36)
+        {
+            <h4> No Objection Certificate</h4>
+        }
+        @if (Model.RegisterTypeID == 37)
+        {
+            <h4> Residence Certificate</h4>
+        }
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @if (Model?.CharacterID >0)
@@ -73,28 +80,58 @@
                 @Html.ValidationMessageFor(model => model.Age, "", new { @class = "text-danger" })
             </div>
         </div>
+    
         <div class="form-group">
-            <label class="control-label col-md-2">Father Name</label>
+            @if (Model.RegisterTypeID == 36)
+            {
+                <label class="control-label col-md-2">Father Name</label>
+
+
+            }
+            else if (Model.RegisterTypeID == 37)
+            {
+                <label class="control-label col-md-2">Son Of</label>
+
+            }
             <div class="col-md-10">
                 @Html.EditorFor(model => model.FatherName, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.FatherName, "", new { @class = "text-danger" })
             </div>
         </div>
         <div class="form-group">
-            <label class="control-label col-md-2">Mother Name</label>
+            @if (Model.RegisterTypeID == 36)
+            {
+                <label class="control-label col-md-2">Mother Name</label>
+
+
+            }
+            else if (Model.RegisterTypeID == 37)
+            {
+                <label class="control-label col-md-2">Taluka</label>
+
+            }
             <div class="col-md-10">
                 @Html.EditorFor(model => model.MotherName, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.MotherName, "", new { @class = "text-danger" })
             </div>
         </div>
         <div class="form-group">
-         <label class="control-label col-md-2">Address</label>          
+             <label class="control-label col-md-2">Address</label>    
                   <div class="col-md-10">
                 @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
             </div>
         </div>
-      
+      @if (Model.RegisterTypeID == 37)
+      {
+        <div class="form-group">
+            <label class="control-label col-md-2">Village</label>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Village, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Village, "", new { @class = "text-danger" })
+            </div>
+        </div>
+      }
         <div class="form-group">
             <label class="control-label col-md-2">Ward Of</label>
             <div class="col-md-10">
@@ -102,6 +139,16 @@
                 @Html.ValidationMessageFor(model => model.WardOf, "", new { @class = "text-danger" })
             </div>
         </div>
+        @if (Model.RegisterTypeID == 37)
+        {
+            <div class="form-group">
+                <label class="control-label col-md-2">Since</label>
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.KnownYears, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.KnownYears, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        }
         <div class="form-group">
             <label class="control-label col-md-2">Purpose Of</label>
             <div class="col-md-10">

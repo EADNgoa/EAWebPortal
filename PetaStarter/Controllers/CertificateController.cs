@@ -850,6 +850,10 @@ namespace PanchayatWebPortal.Controllers
                     WEBstatusID= (int)rec.WEBstatusID
                     
                 };
+                if(rt==37)
+                {
+                    res.Village = rec.Village;
+                }
 
                 return View(res);
             }
@@ -866,7 +870,7 @@ namespace PanchayatWebPortal.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult CharManage([Bind(Include = "CharacterID,PersonName,Age,FatherName,PurposeOf,MotherName,Address,WardOf,KnownYears,UserID,WEBstatusID,RegisterTypeID,UploadedFile")]  CharCertDet charCert)
+        public ActionResult CharManage([Bind(Include = "CharacterID,PersonName,Age,FatherName,PurposeOf,MotherName,Village,Address,WardOf,KnownYears,UserID,WEBstatusID,RegisterTypeID,UploadedFile")]  CharCertDet charCert)
         {
             using (var transaction = db.GetTransaction())
             {
@@ -890,6 +894,10 @@ namespace PanchayatWebPortal.Controllers
                             WardOf = charCert.WardOf,
                             WEBstatusID = (int)charCert.WEBstatusID
                         };
+                        if(charCert.RegisterTypeID == 37)
+                        {
+                            res.Village = charCert.Village;
+                        }
                         if (charCert.CharacterID == 0)
                         {
 

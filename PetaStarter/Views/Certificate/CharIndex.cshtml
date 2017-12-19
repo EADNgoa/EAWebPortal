@@ -3,7 +3,16 @@
 
 
 <center>    
-        <h2 class="section-to-print"><b>Character Certificate</b></h2>      
+    @if (ViewBag.RegisterTypeID == 36)
+    {
+
+        <h2 class="section-to-print"><b>Character Certificate</b></h2>
+    }
+    @if (ViewBag.RegisterTypeID == 37)
+    {
+
+        <h2 class="section-to-print"><b>Residence Certificate</b></h2>
+    }
 </center>
 <p>
     @Html.ActionLink("Create New", "CharManage",new {rt = ViewBag.RegisterTypeID })
@@ -19,21 +28,63 @@
         <th>
             Age
         </th>
-        <th>
-          Father Name
-        </th>
-        <th>
-         Mother Name
-        </th>
-        <th>
-         Address
-        </th>
+        @if (ViewBag.RegisterTypeID == 36)
+        {
+            <th>
+                Father Name
+            </th>
+
+        }
+        else if(ViewBag.RegisterTypeID == 37)
+        {
+            <th>
+                Son Of
+            </th>
+        }
+
+        @if (ViewBag.RegisterTypeID == 36)
+        {
+            <th>
+                Mother Name
+            </th>
+
+        }
+        else if (ViewBag.RegisterTypeID == 37)
+        {
+            <th>
+                Taluka
+            </th>
+        }
+      
+            <th>
+                Address
+            </th>
+
+       
+       @if (ViewBag.RegisterTypeID == 37)
+        {
+            <th>
+                Village
+            </th>
+        }
+     
         <th>
         Ward Of
         </th>
-        <th>
-       Known Years
-        </th>
+        @if (ViewBag.RegisterTypeID == 36)
+        {
+            <th>
+                Known Years
+            </th>
+
+        }
+        else if (ViewBag.RegisterTypeID == 37)
+        {
+            <th>
+               Living Since
+            </th>
+        }
+      
         <th>
             Purpose Of
         </th>
@@ -68,6 +119,9 @@
         </td>
         <td>
             @item.Address
+        </td>
+        <td>
+            @item.Village
         </td>
         <td>
             @item.WardOf

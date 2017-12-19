@@ -253,6 +253,7 @@ namespace PanchayatWebPortal
 		[Column] public DateTime? Tdate { get; set; }
 		[Column] public string FatherName { get; set; }
 		[Column] public string MotherName { get; set; }
+		[Column] public string Village { get; set; }
 		[Column] public string Address { get; set; }
 		[Column] public string WardOf { get; set; }
 		[Column] public int? KnownYears { get; set; }

@@ -7,6 +7,8 @@
 
     [FatherName] VARCHAR(100) NULL, 
     [MotherName] VARCHAR(100) NULL, 
+	[Village]        VARCHAR (150)  NULL,
+
     [Address] VARCHAR(200) NULL, 
     [WardOf] VARCHAR(100) NULL, 
     [KnownYears] INT NULL,

@@ -19,6 +19,8 @@ namespace PanchayatWebPortal
 
         public string Address { get; set; }
         public string WardOf { get; set; }
+        public string Village { get; set; }
+
         public int Age { get; set; }
         public DateTime Tdate { get; set; }
         public string Status { get; set; }
