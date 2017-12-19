@@ -14,7 +14,6 @@ namespace PanchayatWebPortal
 
 
         public string PersonName { get; set; }
-        public string OtherName { get; set; }
         public string AddOfPerReq { get; set; }
 
 

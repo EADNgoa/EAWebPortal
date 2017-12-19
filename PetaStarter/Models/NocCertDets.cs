@@ -5,21 +5,19 @@ using System.Web;
 
 namespace PanchayatWebPortal
 {
-    public class ResidenceCert
+    public class NocCertDets
     {
-        public int ResidenceCertificateID { get; set; }
+        public int NocID { get; set; }
         public int WEBstatusID { get; set; }
         public string UserID { get; set; }
         public int RegisterTypeID { get; set; }
         public string PersonName { get; set; }
-        public string NameOfMother { get; set; }
-        public string NameOfFather { get; set; }
+        public string ElectDeptAdd { get; set; }     
         public string Address { get; set; }
-        public string BirthPlace { get; set; }
-        public bool IsDead { get; set; }
-        public DateTime BirthDate { get; set; }
-        public int Since { get; set; }
-      
+        public string Hno { get; set; }
+        public string No { get; set; }
+        public DateTime AprovedDate { get; set; }
+        public DateTime PrintDate { get; set; }       
         public string Status { get; set; }
         public HttpPostedFileBase UploadedFile { get; set; }
     }

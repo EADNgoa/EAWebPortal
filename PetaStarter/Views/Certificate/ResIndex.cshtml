@@ -40,11 +40,9 @@
         Address          
         </th>
         <th>
-        Living From
+        Living Since
         </th>
-        <th>
-        Till Date
-        </th>
+
         <th>
          IsDead?
         </th>
@@ -82,9 +80,9 @@
             @item.Address
         </td>
         <td>
-            @(String.Format("{0:dd-mm-yyyy}", item.FromDate))        </td>
-        <td>
-            @(String.Format("{0:dd-mm-yyyy}", item.TillDate))        </td>
+            @item.Since   
+        </td>
+       
         <td>
             @item.IsDead
         </td>

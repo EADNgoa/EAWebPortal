@@ -49,4 +49,39 @@
     <Property Name="ParentElementType" Value="SqlTable" />
     <Property Name="NewName" Value="OccupancyCertDetailsID" />
   </Operation>
+  <Operation Name="Rename Refactor" Key="6dda29f0-8f95-41ef-bfaf-fb2689b3023c" ChangeDateTime="12/15/2017 06:32:31">
+    <Property Name="ElementName" Value="[dbo].[NocCertifictes].[Id]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[NocCertifictes]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="NocID" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="ad7f707e-f7f0-4b5b-b0d2-c0c7750f0847" ChangeDateTime="12/15/2017 06:32:53">
+    <Property Name="ElementName" Value="[dbo].[NocCertifictes].[Hn]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[NocCertifictes]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="Hnumber" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="05bef18a-5230-45a5-a680-edbb1fb8a421" ChangeDateTime="12/15/2017 06:32:59">
+    <Property Name="ElementName" Value="[dbo].[NocCertifictes].[Hnumber]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[NocCertifictes]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="Hno" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="4639ddb4-00f6-424e-9a5f-96504fba950e" ChangeDateTime="12/15/2017 06:46:40">
+    <Property Name="ElementName" Value="[dbo].[NocCertifictes].[ApplDate]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[NocCertifictes]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="AprovedDate" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="03c70dbf-c493-464e-9752-ffcd0f03843c" ChangeDateTime="12/15/2017 10:50:37">
+    <Property Name="ElementName" Value="[dbo].[CharacterCertificate].[Id]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[CharacterCertificate]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="CharacterID" />
+  </Operation>
 </Operations>

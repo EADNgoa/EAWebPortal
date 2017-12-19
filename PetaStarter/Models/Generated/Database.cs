@@ -242,6 +242,27 @@ namespace PanchayatWebPortal
 		[Column] public string DocumentName { get; set; }
 	}
     
+	[TableName("dbo.CharacterCertificate")]
+	[PrimaryKey("CharacterID")]
+	[ExplicitColumns]
+    public partial class CharacterCertificate  
+    {
+		[Column] public int CharacterID { get; set; }
+		[Column] public string PersonName { get; set; }
+		[Column] public int? Age { get; set; }
+		[Column] public DateTime? Tdate { get; set; }
+		[Column] public string FatherName { get; set; }
+		[Column] public string MotherName { get; set; }
+		[Column] public string Village { get; set; }
+		[Column] public string Address { get; set; }
+		[Column] public string WardOf { get; set; }
+		[Column] public int? KnownYears { get; set; }
+		[Column] public string PurposeOf { get; set; }
+		[Column] public string UserID { get; set; }
+		[Column] public int? WEBstatusID { get; set; }
+		[Column] public int? RegisterTypeID { get; set; }
+	}
+    
 	[TableName("dbo.Citizen")]
 	[PrimaryKey("CitizenID")]
 	[ExplicitColumns]
@@ -611,6 +632,24 @@ namespace PanchayatWebPortal
 		[Column] public int? RegisterTypeID { get; set; }
 	}
     
+	[TableName("dbo.NocCertifictes")]
+	[PrimaryKey("NocID")]
+	[ExplicitColumns]
+    public partial class NocCertificte  
+    {
+		[Column] public int NocID { get; set; }
+		[Column] public string Hno { get; set; }
+		[Column] public string No { get; set; }
+		[Column] public DateTime? AprovedDate { get; set; }
+		[Column] public DateTime? PrintDate { get; set; }
+		[Column] public string Address { get; set; }
+		[Column] public string PersonName { get; set; }
+		[Column] public string ElectDeptAdd { get; set; }
+		[Column] public string UserID { get; set; }
+		[Column] public int? WEBstatusID { get; set; }
+		[Column] public int? RegisterTypeID { get; set; }
+	}
+    
 	[TableName("dbo.OccupationCertDetails")]
 	[PrimaryKey("OccupationCertDetailsID")]
 	[ExplicitColumns]
@@ -748,8 +787,7 @@ namespace PanchayatWebPortal
 		[Column] public string NameOfFather { get; set; }
 		[Column] public string Address { get; set; }
 		[Column] public DateTime? TDate { get; set; }
-		[Column] public DateTime? FromDate { get; set; }
-		[Column] public DateTime? TillDate { get; set; }
+		[Column] public int? Since { get; set; }
 		[Column] public bool? IsDead { get; set; }
 		[Column] public string UserID { get; set; }
 		[Column] public int? RegisterTypeID { get; set; }
