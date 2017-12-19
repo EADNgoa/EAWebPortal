@@ -18,8 +18,8 @@ namespace PanchayatWebPortal
         public string BirthPlace { get; set; }
         public bool IsDead { get; set; }
         public DateTime BirthDate { get; set; }
-        public DateTime FromDate { get; set; }
-        public DateTime TillDate { get; set; }
+        public int Since { get; set; }
+
         public string Status { get; set; }
         public HttpPostedFileBase UploadedFile { get; set; }
     }

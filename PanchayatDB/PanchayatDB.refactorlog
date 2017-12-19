@@ -49,4 +49,53 @@
     <Property Name="ParentElementType" Value="SqlTable" />
     <Property Name="NewName" Value="OccupancyCertDetailsID" />
   </Operation>
+  <Operation Name="Rename Refactor" Key="288d8d58-ccaa-45f9-854d-08fd7902d368" ChangeDateTime="12/19/2017 06:30:37">
+    <Property Name="ElementName" Value="[dbo].[IncomeCertificate].[Id]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[IncomeCertificate]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="IncomeCertificateID" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="028f4f5f-9633-4d78-bd74-c47e65a3f07a" ChangeDateTime="12/19/2017 06:32:17">
+    <Property Name="ElementName" Value="[dbo].[IncomeCertificate].[Person]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[IncomeCertificate]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="PersonName" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="5e8c9c6b-8897-4fc5-ab35-b2d301e21640" ChangeDateTime="12/19/2017 06:34:10">
+    <Property Name="ElementName" Value="[dbo].[IncomeCertificate].[YearOF]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[IncomeCertificate]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="YearOf" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="d5ade74c-eadb-4bc9-81a1-6e211ab1e97c" ChangeDateTime="12/19/2017 06:36:47">
+    <Property Name="ElementName" Value="[dbo].[IncomeCertificate].[ReportNo]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[IncomeCertificate]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="EnquiryDetails" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="e2aae746-6a0d-4ce2-ae89-12d6f0ff9a50" ChangeDateTime="12/19/2017 06:37:00">
+    <Property Name="ElementName" Value="[dbo].[IncomeCertificate].[EnquiryDetails]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[IncomeCertificate]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="Inquiry" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="842bf26a-dfca-4f34-bb5f-ffe90d13bae4" ChangeDateTime="12/19/2017 06:37:06">
+    <Property Name="ElementName" Value="[dbo].[IncomeCertificate].[Place]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[IncomeCertificate]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="ReportNo" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="8aabd525-1d67-418d-87da-df036fc6d715" ChangeDateTime="12/19/2017 09:06:48">
+    <Property Name="ElementName" Value="[dbo].[DeathCorrCertificate].[InsteadOfFMN]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[DeathCorrCertificate]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="InsteadFWN" />
+  </Operation>
 </Operations>
