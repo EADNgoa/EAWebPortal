@@ -1,0 +1,106 @@
+﻿@model PagedList.IPagedList<PanchayatWebPortal.NocCertDets>
+@using PagedList.Mvc;
+
+
+<center>   
+    @if (ViewBag.RegisterTypeID == 34)
+    {
+            <h2 class="section-to-print"><b>No Objection Certificate For Eletricity</b></h2>       
+    }
+    @if (ViewBag.RegisterTypeID == 35)
+    {
+        <h2 class="section-to-print"><b>No Objection Certificate For Water Supply</b></h2>
+    }
+       
+</center>
+<p>
+    @Html.ActionLink("Create New", "NocManage",new {rt = ViewBag.RegisterTypeID })
+</p>
+<table class="table">
+    <tr>
+        <th>
+         Sr No
+        </th>
+        <th>
+        Person Name
+        </th>
+        <th>
+          Ref No
+        </th>
+        <th>
+         H. No
+        </th>
+        <th>
+         Address
+        </th>
+        <th>
+         Date of Approval
+        </th>
+        <th>
+        Date Of Print
+        </th>
+        @if (ViewBag.RegisterTypeID == 34)
+        {
+            <th>
+                Electric Department
+            </th>
+        }
+        @if (ViewBag.RegisterTypeID == 35)
+        {
+            <th>
+                Water Supply Department
+            </th>
+        }
+        <th>
+         Status
+        </th>
+      
+        <th></th>
+
+    </tr>
+    @{int i = 1; }
+@foreach (var item in Model) {
+    <tr>
+        <td>
+           @i
+        </td>
+     
+        <td>
+            @item.PersonName
+        </td>
+        <td>
+            @item.No
+        </td>
+        <td>
+            @item.Hno
+        </td>
+        <td>
+            @item.Address
+        </td>
+        <td>
+            @(String.Format("{0:dd-mm-yyyy}", item.AprovedDate))
+        </td>
+       
+        <td>
+            @(String.Format("{0:dd-mm-yyyy}", item.PrintDate))
+        </td>
+       
+        <td>
+           @item.ElectDeptAdd
+        </td>
+      
+        <td>
+            @item.Status
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "NocManage", new { id=item.NocID,rt = item.RegisterTypeID }) 
+        </td>
+    </tr>
+    i++;
+}
+
+</table>
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+@Html.PagedListPager(Model, page => Url.Action("Index",
+    new { page}))

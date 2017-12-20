@@ -6,6 +6,8 @@
     [BirthPlace] VARCHAR(250) NULL, 
     [NameOfMother] VARCHAR(100) NULL, 
     [NameOfFather] VARCHAR(100) NULL, 
+	[Since]                  int           NULL,
+
     [Address] VARCHAR(100) NULL, 
     [TDate] DATE NULL, 
     [FromDate] DATE NULL, 

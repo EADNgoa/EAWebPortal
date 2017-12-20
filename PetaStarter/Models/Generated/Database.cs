@@ -254,6 +254,7 @@ namespace PanchayatWebPortal
 		[Column] public string FatherName { get; set; }
 		[Column] public string MotherName { get; set; }
 		[Column] public string Village { get; set; }
+
 		[Column] public string Place { get; set; }
 		[Column] public string Address { get; set; }
 		[Column] public string WardOf { get; set; }

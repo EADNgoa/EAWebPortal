@@ -50,7 +50,7 @@ namespace PanchayatWebPortal.Controllers
                     WEBstatusID = (int)rec.WEBstatusID,
                     UserID =rec.UserID,
                     AddOfPerReq =rec.AddOfPerReqBy,
-                    OtherName =rec.OtherName
+                  
                     
                    
 
@@ -71,7 +71,7 @@ namespace PanchayatWebPortal.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Manage([Bind(Include = "PovertyCertificateID,PersonName,OtherName,PersonAddress,RequestedBy,AddOfPerReq,UserID,WEBstatusID,RegisterTypeID,UploadedFile")]  PovertyCert povertyCertificate)
+        public ActionResult Manage([Bind(Include = "PovertyCertificateID,PersonName,PersonAddress,RequestedBy,AddOfPerReq,UserID,WEBstatusID,RegisterTypeID,UploadedFile")]  PovertyCert povertyCertificate)
         {
             using (var transaction = db.GetTransaction())
             {
@@ -90,7 +90,7 @@ namespace PanchayatWebPortal.Controllers
                             WEBstatusID = povertyCertificate.WEBstatusID,
                             PovertyCertificateID =povertyCertificate.PovertyCertificateID,
                             AddOfPerReqBy =povertyCertificate.AddOfPerReq,
-                            OtherName =povertyCertificate.OtherName                           
+                                                       
                         };
                         if (povertyCertificate.PovertyCertificateID == 0)
                         {
@@ -154,6 +154,9 @@ namespace PanchayatWebPortal.Controllers
                     Address=rec.Address,
                     BirthDate= (DateTime)rec.BirthDate,
                     BirthPlace=rec.BirthPlace,
+
+                    Since= (int)rec.Since,
+
                     NameOfFather=rec.NameOfFather,
                     NameOfMother=rec.NameOfMother,
                     PersonName=rec.PersonName,
@@ -180,7 +183,7 @@ namespace PanchayatWebPortal.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult ResManage([Bind(Include = "ResidenceCertificateID,PersonName,BirthDate,BirthPlace,NameOfMother,NameOfFather,Address,FromDate,TillDate,IsDead,UserID,WEBstatusID,RegisterTypeID,UploadedFile")]  ResidenceCert residence)
+        public ActionResult ResManage([Bind(Include = "ResidenceCertificateID,PersonName,BirthDate,BirthPlace,NameOfMother,NameOfFather,Address,Since,IsDead,UserID,WEBstatusID,RegisterTypeID,UploadedFile")]  ResidenceCert residence)
         {
             using (var transaction = db.GetTransaction())
             {
@@ -194,6 +197,9 @@ namespace PanchayatWebPortal.Controllers
                             Address= residence.Address,
                             BirthDate= residence.BirthDate,
                             BirthPlace= residence.BirthPlace,
+
+                            Since= residence.Since,
+
                             IsDead=residence.IsDead,
                             NameOfFather=residence.NameOfFather,
                             NameOfMother=residence.NameOfMother,
@@ -696,6 +702,241 @@ namespace PanchayatWebPortal.Controllers
 
             base.BaseSave<OccupationCertDetail>(occupationCert, occupationCert.OccupationCertDetailsID > 0);
             return RedirectToAction("OccupDetails", new { id = occupationCert.OccupationCertificateID });
+
+        }
+        public ActionResult NocIndex(int? page, int? rt)
+        {
+            var id = User.Identity.GetUserId();
+            ViewBag.RegisterTypeID = rt;
+
+            int pageSize = db.Fetch<int>("Select top 1 RowsPerPage from Config").FirstOrDefault();
+            int pageNumber = (page ?? 1);
+
+            var RC = db.Fetch<NocCertDets>("Select * from NocCertifictes pc inner join AspNetUsers asu on asu.Id = pc.UserID Inner Join WEbstatus ws on ws.WEBstatusID = pc.WEBstatusID Where RegisterTypeID = @0 and pc.UserID = @1 Order By NocID Desc", rt, id);
+
+            return View(RC.ToPagedList(pageNumber, pageSize));
+
+
+        }
+        public ActionResult NocManage(int? id, int? rt)
+        {
+            ViewBag.CertReq = db.Fetch<CertificateRequirement>("select * From CertificateRequirements Where RegisterTypeID = @0", rt);
+            var rec = base.BaseCreateEdit<NocCertificte>(id, "NocID");
+            ViewBag.RegisterTypeID = rt;
+
+            if (id != null)
+            {
+                NocCertDets res = new NocCertDets()
+                {
+                    Address=rec.Address,
+                    ElectDeptAdd=rec.ElectDeptAdd,
+                    WEBstatusID=(int)rec.WEBstatusID,
+                    RegisterTypeID=(int)rec.RegisterTypeID,
+                    Hno=rec.Hno,
+                    No=rec.No,
+                    NocID=rec.NocID,
+                    PersonName=rec.PersonName,
+                    UserID=rec.UserID
+                };
+
+                return View(res);
+            }
+            else
+            {
+                NocCertDets sp = new NocCertDets() { UserID = User.Identity.GetUserId(), RegisterTypeID = (int)rt, WEBstatusID = 1 };
+                return View(sp);
+            }
+
+        }
+
+        // POST: Clients/Create
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult NocManage([Bind(Include = "NocID,Hno,No,ApprovedDate,PrintDate,PersonName,Address,ElectDeptAdd,UserID,WEBstatusID,RegisterTypeID,UploadedFile")]  NocCertDets noc)
+        {
+            using (var transaction = db.GetTransaction())
+            {
+                try
+                {
+                    if (noc.UploadedFile != null || noc.NocID > 0)
+                    {
+
+                        NocCertificte res = new NocCertificte()
+                        {
+                            Address = noc.Address,
+                            ElectDeptAdd = noc.ElectDeptAdd,
+                            WEBstatusID = noc.WEBstatusID,
+                            RegisterTypeID = noc.RegisterTypeID,
+                            Hno = noc.Hno,
+                            No = noc.No,
+                            AprovedDate=null,
+                            PrintDate=null,
+                            NocID = noc.NocID,
+                            PersonName = noc.PersonName,
+                            UserID = noc.UserID,
+                            
+                        };
+                        if (noc.NocID == 0)
+                        {
+
+                            string fn = noc.UploadedFile.FileName.Substring(noc.UploadedFile.FileName.LastIndexOf('\\') + 1);
+                            fn = noc.PersonName + "_" + fn;
+                            string SavePath = System.IO.Path.Combine(Server.MapPath("~/Images"), fn);
+                            noc.UploadedFile.SaveAs(SavePath);
+                            base.BaseSave<NocCertificte>(res, noc.NocID > 0);
+
+                            var item = new CertSupportDoc { RegisterTypeID = noc.RegisterTypeID, CertificateID = res.NocID, DocumentName = fn };
+                            db.Save(item);
+                        }
+                        else
+                        {
+                            //System.Drawing.Bitmap upimg = new System.Drawing.Bitmap(siteTransaction.UploadedFile.InputStream);
+                            //System.Drawing.Bitmap svimg = MyExtensions.CropUnwantedBackground(upimg);
+                            //svimg.Save(System.IO.Path.Combine(Server.MapPath("~/Images"), fn));
+                            base.BaseSave<NocCertificte>(res, noc.NocID > 0);
+
+                        }
+
+
+
+                        transaction.Complete();
+                    }
+                    return RedirectToAction("NocIndex", new { rt = noc.RegisterTypeID });
+                }
+                catch (Exception ex)
+                {
+                    db.AbortTransaction();
+                    throw ex;
+                }
+
+
+            }
+
+        }
+
+        public ActionResult CharIndex(int? page, int? rt)
+        {
+            var id = User.Identity.GetUserId();
+            ViewBag.RegisterTypeID = rt;
+
+            int pageSize = db.Fetch<int>("Select top 1 RowsPerPage from Config").FirstOrDefault();
+            int pageNumber = (page ?? 1);
+
+            var RC = db.Fetch<CharCertDet>("Select * from CharacterCertificate pc inner join AspNetUsers asu on asu.Id = pc.UserID Inner Join WEbstatus ws on ws.WEBstatusID = pc.WEBstatusID Where RegisterTypeID = @0 and pc.UserID = @1 Order By CharacterID Desc", rt, id);
+
+            return View(RC.ToPagedList(pageNumber, pageSize));
+
+
+        }
+        public ActionResult CharManage(int? id, int? rt)
+        {
+            ViewBag.CertReq = db.Fetch<CertificateRequirement>("select * From CertificateRequirements Where RegisterTypeID = @0", rt);
+            var rec = base.BaseCreateEdit<CharacterCertificate>(id, "CharacterID");
+            ViewBag.RegisterTypeID = rt;
+
+            if (id != null)
+            {
+                CharCertDet res = new CharCertDet()
+                {
+                    Address= rec.Address,
+                    Age=(int)rec.Age,
+                    CharacterID=rec.CharacterID,
+                    FatherName=rec.FatherName,
+                    RegisterTypeID= (int)rec.RegisterTypeID,
+                    KnownYears= (int)rec.KnownYears,
+                    PurposeOf=rec.PurposeOf,
+                    MotherName=rec.MotherName,
+                    PersonName=rec.PersonName,
+                    UserID=rec.UserID,
+                    WardOf=rec.WardOf,
+                    WEBstatusID= (int)rec.WEBstatusID
+                    
+                };
+                if(rt==37)
+                {
+                    res.Village = rec.Village;
+                }
+
+                return View(res);
+            }
+            else
+            {
+                CharCertDet sp = new CharCertDet() { UserID = User.Identity.GetUserId(), RegisterTypeID = (int)rt, WEBstatusID = 1 };
+                return View(sp);
+            }
+
+        }
+
+        // POST: Clients/Create
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult CharManage([Bind(Include = "CharacterID,PersonName,Age,FatherName,PurposeOf,MotherName,Village,Address,WardOf,KnownYears,UserID,WEBstatusID,RegisterTypeID,UploadedFile")]  CharCertDet charCert)
+        {
+            using (var transaction = db.GetTransaction())
+            {
+                try
+                {
+                    if (charCert.UploadedFile != null || charCert.CharacterID > 0)
+                    {
+
+                        CharacterCertificate res = new CharacterCertificate()
+                        {
+                            Address = charCert.Address,
+                            Age = (int)charCert.Age,
+                            CharacterID = charCert.CharacterID,
+                            FatherName = charCert.FatherName,
+                            RegisterTypeID = (int)charCert.RegisterTypeID,
+                            KnownYears = (int)charCert.KnownYears,
+                            MotherName = charCert.MotherName,
+                            PersonName = charCert.PersonName,
+                            PurposeOf=charCert.PurposeOf,
+                            UserID = charCert.UserID,
+                            WardOf = charCert.WardOf,
+                            WEBstatusID = (int)charCert.WEBstatusID
+                        };
+                        if(charCert.RegisterTypeID == 37)
+                        {
+                            res.Village = charCert.Village;
+                        }
+                        if (charCert.CharacterID == 0)
+                        {
+
+                            string fn = charCert.UploadedFile.FileName.Substring(charCert.UploadedFile.FileName.LastIndexOf('\\') + 1);
+                            fn = charCert.PersonName + "_" + fn;
+                            string SavePath = System.IO.Path.Combine(Server.MapPath("~/Images"), fn);
+                            charCert.UploadedFile.SaveAs(SavePath);
+                            base.BaseSave<CharacterCertificate>(res, charCert.CharacterID > 0);
+
+                            var item = new CertSupportDoc { RegisterTypeID = res.RegisterTypeID, CertificateID = res.CharacterID, DocumentName = fn };
+                            db.Save(item);
+                        }
+                        else
+                        {
+                            //System.Drawing.Bitmap upimg = new System.Drawing.Bitmap(siteTransaction.UploadedFile.InputStream);
+                            //System.Drawing.Bitmap svimg = MyExtensions.CropUnwantedBackground(upimg);
+                            //svimg.Save(System.IO.Path.Combine(Server.MapPath("~/Images"), fn));
+                            base.BaseSave<CharacterCertificate>(res, charCert.CharacterID > 0);
+
+                        }
+
+
+
+                        transaction.Complete();
+                    }
+                    return RedirectToAction("CharIndex", new { rt = charCert.RegisterTypeID });
+                }
+                catch (Exception ex)
+                {
+                    db.AbortTransaction();
+                    throw ex;
+                }
+
+
+            }
 
         }
         protected override void Dispose(bool disposing)

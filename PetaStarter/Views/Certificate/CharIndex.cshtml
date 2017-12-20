@@ -1,0 +1,153 @@
+﻿@model PagedList.IPagedList<PanchayatWebPortal.CharCertDet>
+@using PagedList.Mvc;
+
+
+<center>    
+    @if (ViewBag.RegisterTypeID == 36)
+    {
+
+        <h2 class="section-to-print"><b>Character Certificate</b></h2>
+    }
+    @if (ViewBag.RegisterTypeID == 37)
+    {
+
+        <h2 class="section-to-print"><b>Residence Certificate</b></h2>
+    }
+</center>
+<p>
+    @Html.ActionLink("Create New", "CharManage",new {rt = ViewBag.RegisterTypeID })
+</p>
+<table class="table">
+    <tr>
+        <th>
+         Sr No
+        </th>
+        <th>
+        Person Name
+        </th>
+        <th>
+            Age
+        </th>
+        @if (ViewBag.RegisterTypeID == 36)
+        {
+            <th>
+                Father Name
+            </th>
+
+        }
+        else if(ViewBag.RegisterTypeID == 37)
+        {
+            <th>
+                Son Of
+            </th>
+        }
+
+        @if (ViewBag.RegisterTypeID == 36)
+        {
+            <th>
+                Mother Name
+            </th>
+
+        }
+        else if (ViewBag.RegisterTypeID == 37)
+        {
+            <th>
+                Taluka
+            </th>
+        }
+      
+            <th>
+                Address
+            </th>
+
+       
+       @if (ViewBag.RegisterTypeID == 37)
+        {
+            <th>
+                Village
+            </th>
+        }
+     
+        <th>
+        Ward Of
+        </th>
+        @if (ViewBag.RegisterTypeID == 36)
+        {
+            <th>
+                Known Years
+            </th>
+
+        }
+        else if (ViewBag.RegisterTypeID == 37)
+        {
+            <th>
+               Living Since
+            </th>
+        }
+      
+        <th>
+            Purpose Of
+        </th>
+        <th>
+            Print Date
+        </th>
+        <th>
+         Status
+        </th>
+      
+        <th></th>
+
+    </tr>
+    @{int i = 1; }
+@foreach (var item in Model) {
+    <tr>
+        <td>
+           @i
+        </td>
+     
+        <td>
+            @item.PersonName
+        </td>
+        <td>
+            @item.Age
+        </td>
+        <td>
+            @item.FatherName
+        </td>
+        <td>
+            @item.MotherName
+        </td>
+        <td>
+            @item.Address
+        </td>
+        <td>
+            @item.Village
+        </td>
+        <td>
+            @item.WardOf
+        </td>
+    
+        <td>
+            @item.KnownYears
+        </td>
+        <td>
+            @item.PurposeOf
+        </td>
+        <td>
+            @(String.Format("{0:dd-mm-yyyy}", item.Tdate))
+        </td>
+         <td>
+            @item.Status
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "CharManage", new { id=item.CharacterID,rt = item.RegisterTypeID }) 
+        </td> 
+    </tr>
+    i++; 
+}
+
+</table>
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+@Html.PagedListPager(Model, page => Url.Action("Index",
+    new { page}))
