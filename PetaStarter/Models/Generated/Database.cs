@@ -158,6 +158,50 @@ namespace PanchayatWebPortal
 		[Column] public int? Year { get; set; }
 	}
     
+	[TableName("dbo.BND")]
+	[PrimaryKey("BNDID")]
+	[ExplicitColumns]
+    public partial class BND  
+    {
+		[Column] public int BNDID { get; set; }
+		[Column] public string ChildName { get; set; }
+		[Column] public string Gender { get; set; }
+		[Column] public DateTime? DateOfBirth { get; set; }
+		[Column] public DateTime? TDate { get; set; }
+		[Column] public string PlaceOfBirth { get; set; }
+		[Column] public string PlaceOfBirthHouse { get; set; }
+		[Column] public string NameOfMother { get; set; }
+		[Column] public int? UIDmother { get; set; }
+		[Column] public string NameOfFather { get; set; }
+		[Column] public int? UIDfather { get; set; }
+		[Column] public string GrandFather { get; set; }
+		[Column] public string GrandMother { get; set; }
+		[Column] public string AddressParentsBirth { get; set; }
+		[Column] public string PermAddress { get; set; }
+		[Column] public string InformantsName { get; set; }
+		[Column] public string InformantAddress { get; set; }
+		[Column] public string NameOfTown { get; set; }
+		[Column] public bool? TownOrVillage { get; set; }
+		[Column] public string NameOfDistrict { get; set; }
+		[Column] public string NameOfState { get; set; }
+		[Column] public string ReligionOfFamily { get; set; }
+		[Column] public string AnyOtherReligion { get; set; }
+		[Column] public string FEduc { get; set; }
+		[Column] public string MEduc { get; set; }
+		[Column] public string FOccup { get; set; }
+		[Column] public string MOccup { get; set; }
+		[Column] public int? AgeOfMotherMarraige { get; set; }
+		[Column] public int? AgeOfMotherBirth { get; set; }
+		[Column] public int? NoOfChild { get; set; }
+		[Column] public string AttentionType { get; set; }
+		[Column] public string DeliveryMethod { get; set; }
+		[Column] public int? BirthWeight { get; set; }
+		[Column] public string DurationOfPregnancy { get; set; }
+		[Column] public string UserID { get; set; }
+		[Column] public int? WEBstatusID { get; set; }
+		[Column] public int? RegisterTypeID { get; set; }
+	}
+    
 	[TableName("dbo.Budget")]
 	[PrimaryKey("BudgetID")]
 	[ExplicitColumns]

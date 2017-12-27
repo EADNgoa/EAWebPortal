@@ -939,6 +939,173 @@ namespace PanchayatWebPortal.Controllers
             }
 
         }
+
+        public ActionResult BNDIndex(int? page, int? rt)
+        {
+            var id = User.Identity.GetUserId();
+            ViewBag.RegisterTypeID = rt;
+
+            int pageSize = db.Fetch<int>("Select top 1 RowsPerPage from Config").FirstOrDefault();
+            int pageNumber = (page ?? 1);
+
+            var RC = db.Fetch<BNDcert>("Select * from BND pc inner join AspNetUsers asu on asu.Id = pc.UserID Inner Join WEbstatus ws on ws.WEBstatusID = pc.WEBstatusID Where RegisterTypeID = @0 and pc.UserID = @1 Order By BNDID Desc", rt, id);
+
+            return View(RC.ToPagedList(pageNumber, pageSize));
+
+
+        }
+        public ActionResult BNDManage(int? id, int? rt)
+        {
+            ViewBag.CertReq = db.Fetch<CertificateRequirement>("select * From CertificateRequirements Where RegisterTypeID = @0", rt);
+            var rec = base.BaseCreateEdit<BND>(id, "BNDID");
+            ViewBag.RegisterTypeID = rt;
+
+            if (id != null)
+            {
+                BNDcert res = new BNDcert()
+                {
+                    AddressParentsBirth=rec.AddressParentsBirth,
+                    AgeOfMotherBirth=(int)rec.AgeOfMotherBirth,
+                    AgeOfMotherMarraige=(int)rec.AgeOfMotherMarraige,
+                    AnyOtherReligion=rec.AnyOtherReligion,
+                    AttentionType=rec.AttentionType,
+                    InformantAddress=rec.InformantAddress,
+                    PermAddress=rec.PermAddress,
+                    PlaceOfBirth=rec.PlaceOfBirth,
+                    BirthWeight=(int)rec.BirthWeight,
+                    BNDID=rec.BNDID,
+                    ChildName=rec.ChildName,
+                    DateOfBirth=(DateTime)rec.DateOfBirth,
+                    DeliveryMethod=rec.DeliveryMethod,
+                    DurationOfPregnancy=rec.AddressParentsBirth,
+                    PlaceOfBirthHouse=rec.PlaceOfBirthHouse,
+                    FEduc=rec.FEduc,
+                    RegisterTypeID=(int)rec.RegisterTypeID,
+                    FOccup=rec.FOccup,
+                    Gender=rec.Gender,
+                    GrandFather=rec.GrandFather,
+                    GrandMother=rec.GrandMother,
+                    ReligionOfFamily=rec.ReligionOfFamily,
+                    InformantsName=rec.InformantsName,
+                    MEduc=rec.MEduc,
+                    MOccup=rec.MOccup,
+                    NameOfDistrict=rec.NameOfDistrict,
+                    NameOfFather=rec.NameOfFather,
+                    NameOfMother=rec.NameOfMother,
+                    NameOfState=rec.NameOfState,
+                    NameOfTown=rec.NameOfTown,
+                    NoOfChild=(int)rec.NoOfChild,
+                    TDate=(DateTime)rec.TDate,
+                    TownOrVillage=(bool)rec.TownOrVillage,
+                    UIDfather=(int)rec.UIDfather,
+                    UIDmother= (int)rec.UIDmother,
+                    UserID=rec.UserID,
+                    WEBstatusID= (int)rec.WEBstatusID
+                };
+             
+                return View(res);
+            }
+            else
+            {
+                BNDcert sp = new BNDcert() { UserID = User.Identity.GetUserId(), RegisterTypeID = (int)rt, WEBstatusID = 1 };
+                return View(sp);
+            }
+
+        }
+
+        // POST: Clients/Create
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult BNDManage([Bind(Include = "BNDID,ChildName,Gender,DateOfBirth,TDate,PlaceOfBirth,PlaceOfBirthHouse,NameOfMother,UIDmother,NameOfFather,UIDfather,GrandFather,GrandMother,AddressParentsBirth,PermAddress,InformantsName,InformantAddress,NameOfTown,TownOrVillage,NameOfDistrict,NameOfState,ReligionOfFamily,AnyOtherReligion,FEduc,MEduc,FOccup,MOccup,AgeOfMotherMarraige,AgeOfMotherBirth,NoOfChild,AttentionType,DeliveryMethod,BirthWeight,DurationOfPregnancy,UserID,WEBstatusID,RegisterTypeID,UploadedFile")]  BNDcert bNDcert)
+        {
+            using (var transaction = db.GetTransaction())
+            {
+                try
+                {
+                    if (bNDcert.UploadedFile != null || bNDcert.BNDID > 0)
+                    {
+
+                        BND res = new BND()
+                        {
+                            AddressParentsBirth = bNDcert.AddressParentsBirth,
+                            AgeOfMotherBirth = (int)bNDcert.AgeOfMotherBirth,
+                            AgeOfMotherMarraige = (int)bNDcert.AgeOfMotherMarraige,
+                            AnyOtherReligion = bNDcert.AnyOtherReligion,
+                            AttentionType = bNDcert.AttentionType,
+                            InformantAddress = bNDcert.InformantAddress,
+                            PermAddress = bNDcert.PermAddress,
+                            PlaceOfBirth = bNDcert.PlaceOfBirth,
+                            BirthWeight = (int)bNDcert.BirthWeight,
+                            BNDID = bNDcert.BNDID,
+                            ChildName = bNDcert.ChildName,
+                            DateOfBirth = (DateTime)bNDcert.DateOfBirth,
+                            DeliveryMethod = bNDcert.DeliveryMethod,
+                            DurationOfPregnancy = bNDcert.AddressParentsBirth,
+                            PlaceOfBirthHouse = bNDcert.PlaceOfBirthHouse,
+                            FEduc = bNDcert.FEduc,
+                            RegisterTypeID = (int)bNDcert.RegisterTypeID,
+                            FOccup = bNDcert.FOccup,
+                            Gender = bNDcert.Gender,
+                           
+                            GrandFather = bNDcert.GrandFather,
+                            GrandMother = bNDcert.GrandMother,
+                            ReligionOfFamily = bNDcert.ReligionOfFamily,
+                            InformantsName = bNDcert.InformantsName,
+                            MEduc = bNDcert.MEduc,
+                            MOccup = bNDcert.MOccup,
+                            NameOfDistrict = bNDcert.NameOfDistrict,
+                            NameOfFather = bNDcert.NameOfFather,
+                            NameOfMother = bNDcert.NameOfMother,
+                            NameOfState = bNDcert.NameOfState,
+                            NameOfTown = bNDcert.NameOfTown,
+                            NoOfChild = (int)bNDcert.NoOfChild,
+                            TDate = DateTime.Now,
+                            TownOrVillage = (bool)bNDcert.TownOrVillage,
+                            UIDfather = (int)bNDcert.UIDfather,
+                            UIDmother = (int)bNDcert.UIDmother,
+                            UserID = bNDcert.UserID,
+                            WEBstatusID = (int)bNDcert.WEBstatusID
+                        };
+                       
+                        if (bNDcert.BNDID == 0)
+                        {
+
+                            string fn = bNDcert.UploadedFile.FileName.Substring(bNDcert.UploadedFile.FileName.LastIndexOf('\\') + 1);
+                            fn = bNDcert.InformantsName + "_" + fn;
+                            string SavePath = System.IO.Path.Combine(Server.MapPath("~/Images"), fn);
+                            bNDcert.UploadedFile.SaveAs(SavePath);
+                            base.BaseSave<BND>(res, bNDcert.BNDID > 0);
+
+                            var item = new CertSupportDoc { RegisterTypeID = res.RegisterTypeID, CertificateID = res.BNDID, DocumentName = fn };
+                            db.Save(item);
+                        }
+                        else
+                        {
+                            //System.Drawing.Bitmap upimg = new System.Drawing.Bitmap(siteTransaction.UploadedFile.InputStream);
+                            //System.Drawing.Bitmap svimg = MyExtensions.CropUnwantedBackground(upimg);
+                            //svimg.Save(System.IO.Path.Combine(Server.MapPath("~/Images"), fn));
+                            base.BaseSave<BND>(res, bNDcert.BNDID > 0);
+
+                        }
+
+
+
+                        transaction.Complete();
+                    }
+                    return RedirectToAction("BNDIndex", new { rt = bNDcert.RegisterTypeID });
+                }
+                catch (Exception ex)
+                {
+                    db.AbortTransaction();
+                    throw ex;
+                }
+
+
+            }
+
+        }
         protected override void Dispose(bool disposing)
         {
             if (disposing)
