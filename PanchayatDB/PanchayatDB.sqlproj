@@ -324,9 +324,15 @@
     <Build Include="dbo\Tables\ConstLicenseCert.sql" />
     <Build Include="dbo\Tables\OccupationCertificate.sql" />
     <Build Include="dbo\Tables\OccupancyCertDetails.sql" />
+
+    <Build Include="dbo\Tables\IncomeCertificate.sql" />
+    <Build Include="dbo\Tables\DeathCorrCertificate.sql" />
+
     <Build Include="dbo\Tables\NocCertifictes.sql" />
     <Build Include="dbo\Tables\CharacterCertificate.sql" />
+
     <Build Include="dbo\Tables\BND.sql" />
+
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="PanchayatDB.refactorlog" />

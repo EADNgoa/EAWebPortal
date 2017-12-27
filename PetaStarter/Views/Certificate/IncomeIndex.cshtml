@@ -1,0 +1,120 @@
+﻿@model PagedList.IPagedList<PanchayatWebPortal.IncomeCert>
+@using PagedList.Mvc;
+
+
+<center>
+   
+        <h2 class="section-to-print"><b>Income Certificate</b></h2>
+
+ 
+
+
+   
+</center>
+
+<p>
+
+    @Html.ActionLink("Create New", "IncomeManage",new {rt = ViewBag.RegisterTypeID })
+</p>
+<table class="table">
+    <tr>
+        <th>
+            Sr No
+        </th>
+        <th>
+        Name
+        </th>
+        <th>
+         Relation Name
+        </th>
+        <th>
+           Address
+        </th>
+        <th>
+         Income Amount
+        </th>
+        <th>
+            Year 
+        </th>
+        <th>
+        Name Of Office/Department
+           
+        </th>
+        <th>
+            Purpose Of
+        </th>
+        <th>
+            Inquired Through?
+        </th>
+        <th>
+            Report No
+        </th>
+        <th>
+            Inquiry Date
+        </th>
+        <th>
+            Place
+        </th>
+        <th>
+            Print Date
+        </th>
+      
+        <th></th>
+
+    </tr>
+    @{int i = 1; }
+@foreach (var item in Model) {
+    <tr>
+        <td>
+           @i
+        </td>
+     
+        <td>
+            @item.PersonName
+        </td>
+        <td>
+            @item.RelationName
+        </td>
+        <td>
+            @item.Address
+        </td>
+        <td>
+            @item.IncomeAmt
+        </td>
+        <td>
+            @item.YearOf
+        </td>
+        <td>
+            @item.OfficeName
+        </td>
+        <td>
+            @item.PurposeOf
+        </td>
+        <td>
+            @item.Inquiry
+        </td>
+        <td>
+            @item.ReportNo
+        </td>
+        <td>
+            @item.InquiryDate
+        </td>
+        <td>
+            @item.Place
+        </td>
+        <td>
+            @item.PrintDate
+        </td>
+       
+        <td>
+            @Html.ActionLink("Edit", "IncomeManage", new { id=item.IncomeCertificateID,rt = item.RegisterTypeID }) 
+        </td>
+    </tr>
+    i++;
+}
+
+</table>
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+@Html.PagedListPager(Model, page => Url.Action("Index",
+    new { page}))
