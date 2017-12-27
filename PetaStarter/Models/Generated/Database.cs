@@ -158,6 +158,50 @@ namespace PanchayatWebPortal
 		[Column] public int? Year { get; set; }
 	}
     
+	[TableName("dbo.BND")]
+	[PrimaryKey("BNDID")]
+	[ExplicitColumns]
+    public partial class BND  
+    {
+		[Column] public int BNDID { get; set; }
+		[Column] public string ChildName { get; set; }
+		[Column] public string Gender { get; set; }
+		[Column] public DateTime? DateOfBirth { get; set; }
+		[Column] public DateTime? TDate { get; set; }
+		[Column] public string PlaceOfBirth { get; set; }
+		[Column] public string PlaceOfBirthHouse { get; set; }
+		[Column] public string NameOfMother { get; set; }
+		[Column] public int? UIDmother { get; set; }
+		[Column] public string NameOfFather { get; set; }
+		[Column] public int? UIDfather { get; set; }
+		[Column] public string GrandFather { get; set; }
+		[Column] public string GrandMother { get; set; }
+		[Column] public string AddressParentsBirth { get; set; }
+		[Column] public string PermAddress { get; set; }
+		[Column] public string InformantsName { get; set; }
+		[Column] public string InformantAddress { get; set; }
+		[Column] public string NameOfTown { get; set; }
+		[Column] public bool? TownOrVillage { get; set; }
+		[Column] public string NameOfDistrict { get; set; }
+		[Column] public string NameOfState { get; set; }
+		[Column] public string ReligionOfFamily { get; set; }
+		[Column] public string AnyOtherReligion { get; set; }
+		[Column] public string FEduc { get; set; }
+		[Column] public string MEduc { get; set; }
+		[Column] public string FOccup { get; set; }
+		[Column] public string MOccup { get; set; }
+		[Column] public int? AgeOfMotherMarraige { get; set; }
+		[Column] public int? AgeOfMotherBirth { get; set; }
+		[Column] public int? NoOfChild { get; set; }
+		[Column] public string AttentionType { get; set; }
+		[Column] public string DeliveryMethod { get; set; }
+		[Column] public int? BirthWeight { get; set; }
+		[Column] public string DurationOfPregnancy { get; set; }
+		[Column] public string UserID { get; set; }
+		[Column] public int? WEBstatusID { get; set; }
+		[Column] public int? RegisterTypeID { get; set; }
+	}
+    
 	[TableName("dbo.Budget")]
 	[PrimaryKey("BudgetID")]
 	[ExplicitColumns]
@@ -254,6 +298,7 @@ namespace PanchayatWebPortal
 		[Column] public string FatherName { get; set; }
 		[Column] public string MotherName { get; set; }
 		[Column] public string Village { get; set; }
+		[Column] public string Place { get; set; }
 		[Column] public string Address { get; set; }
 		[Column] public string WardOf { get; set; }
 		[Column] public int? KnownYears { get; set; }
@@ -329,6 +374,34 @@ namespace PanchayatWebPortal
 		[Column] public int? VoucherID { get; set; }
 		[Column] public decimal? Amount { get; set; }
 		[Column] public string Remark { get; set; }
+	}
+    
+	[TableName("dbo.DeathCorrCertificate")]
+	[PrimaryKey("DeathCorrCertificateID")]
+	[ExplicitColumns]
+    public partial class DeathCorrCertificate  
+    {
+		[Column] public int DeathCorrCertificateID { get; set; }
+		[Column] public string FromName { get; set; }
+		[Column] public string FromAddress { get; set; }
+		[Column] public DateTime? TDate { get; set; }
+		[Column] public string BirthOf { get; set; }
+		[Column] public DateTime? BornOn { get; set; }
+		[Column] public string BirthPlace { get; set; }
+		[Column] public string FromWrongName { get; set; }
+		[Column] public string InsteadFWN { get; set; }
+		[Column] public string NameOfFather { get; set; }
+		[Column] public string InsteadNF { get; set; }
+		[Column] public string NameOfMother { get; set; }
+		[Column] public string InsteadNM { get; set; }
+		[Column] public string NameOfGrandMother { get; set; }
+		[Column] public string InsteadNGM { get; set; }
+		[Column] public string NameOfGrandFather { get; set; }
+		[Column] public string InsteadNGF { get; set; }
+		[Column] public string BirthDeathName { get; set; }
+		[Column] public string UserID { get; set; }
+		[Column] public int? RegisterTypeID { get; set; }
+		[Column] public int? WEBstatusID { get; set; }
 	}
     
 	[TableName("dbo.Demand")]
@@ -486,6 +559,29 @@ namespace PanchayatWebPortal
 		[Column] public int? WEBstatusID { get; set; }
 		[Column] public string UserID { get; set; }
 		[Column] public int RegisterTypeID { get; set; }
+	}
+    
+	[TableName("dbo.IncomeCertificate")]
+	[PrimaryKey("IncomeCertificateID")]
+	[ExplicitColumns]
+    public partial class IncomeCertificate  
+    {
+		[Column] public int IncomeCertificateID { get; set; }
+		[Column] public string PersonName { get; set; }
+		[Column] public string RelationName { get; set; }
+		[Column] public string Address { get; set; }
+		[Column] public decimal? IncomeAmt { get; set; }
+		[Column] public string YearOf { get; set; }
+		[Column] public string OfficeName { get; set; }
+		[Column] public string PurposeOf { get; set; }
+		[Column] public string Inquiry { get; set; }
+		[Column] public string ReportNo { get; set; }
+		[Column] public DateTime? InquiryDate { get; set; }
+		[Column] public string Place { get; set; }
+		[Column] public DateTime? PrintDate { get; set; }
+		[Column] public string UserID { get; set; }
+		[Column] public int? RegisterTypeID { get; set; }
+		[Column] public int? WEBstatusID { get; set; }
 	}
     
 	[TableName("dbo.InOutRegsIssue")]

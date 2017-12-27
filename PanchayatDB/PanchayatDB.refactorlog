@@ -84,4 +84,25 @@
     <Property Name="ParentElementType" Value="SqlTable" />
     <Property Name="NewName" Value="CharacterID" />
   </Operation>
+  <Operation Name="Rename Refactor" Key="2b60f223-dc69-48ba-bee9-8149cd62316d" ChangeDateTime="12/21/2017 08:54:20">
+    <Property Name="ElementName" Value="[dbo].[BND].[Id]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[BND]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="BNDID" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="5295a03b-1e6f-4978-851d-d2cdb7f449c0" ChangeDateTime="12/21/2017 09:08:08">
+    <Property Name="ElementName" Value="[dbo].[BND].[ResidentAddressMother]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[BND]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="NameOfTown" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="fe257656-e1ac-4bbc-bb41-dc8296df1378" ChangeDateTime="12/21/2017 09:08:59">
+    <Property Name="ElementName" Value="[dbo].[BND].[NameOfDistricst]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[BND]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="NameOfDistrict" />
+  </Operation>
 </Operations>

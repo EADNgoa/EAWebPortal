@@ -204,6 +204,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\BNDcert.cs" />
     <Compile Include="Models\CharCertDet.cs" />
     <Compile Include="Models\OccupationCertDet.cs" />
     <Compile Include="Models\HouseTaxCertDet.cs" />
@@ -377,6 +378,8 @@
     <Content Include="Views\Certificate\NocManage.cshtml" />
     <Content Include="Views\Certificate\CharIndex.cshtml" />
     <Content Include="Views\Certificate\CharManage.cshtml" />
+    <Content Include="Views\Certificate\BNDIndex.cshtml" />
+    <Content Include="Views\Certificate\BNDManage.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

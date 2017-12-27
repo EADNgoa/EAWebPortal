@@ -4,12 +4,20 @@
 
 <center>
    
-        <h2 class="section-to-print"><b>Residence Certificate</b></h2>
 
- 
+ @if (ViewBag.RegisterTypeID == 26)
+ {
+    <h2 class="section-to-print"><b>Residence Certificate</b></h2>
+
+ }
+ else
+ {
+    <h2 class="section-to-print"><b>Birth and Death Certificate</b></h2>
+
+ }
 
 
-   
+
 </center>
 
 <p>
@@ -24,27 +32,59 @@
         <th>
         Name
         </th>
-        <th>
-         Birth Date
-        </th>
-        <th>
-         Birth Place
-        </th>
-        <th>
-         Name Of Mother
-        </th>
-        <th>
-         Name Of Father
-        </th>
+        @if (ViewBag.RegisterTypeID == 26)
+        {
+            <th>
+                Birth Date
+            </th>
+            <th>
+                Birth Place
+            </th>
+            <th>
+                Name Of Mother
+            </th>
+            <th>
+                Name Of Father
+            </th>
+
+        }
+        else
+        {
+            <th>
+                Birth/Death Date
+            </th>
+            <th>
+                Death Place
+            </th>
+            <th>
+                Birth/Death Of
+            </th>
+            <th>
+                Registration No
+            </th>
+        }
+       
+    
+  
+     
         <th>
         Address          
         </th>
+        @if (ViewBag.RegisterTypeID == 26) {
         <th>
         Living Since
         </th>
 
+        }
+        else
+        {
+            <th>
+                
+                Registration Date
+            </th>
+        }
         <th>
-         IsDead?
+            IsDead?
         </th>
         <th>
          Status
@@ -74,15 +114,17 @@
             @item.NameOfMother
         </td>
         <td>
-            @item.NameOfMother
+            @item.NameOfFather
         </td>
         <td>
             @item.Address
         </td>
+        @if (ViewBag.RegisterTypeID==26)
+        {
         <td>
             @item.Since   
         </td>
-       
+        }
         <td>
             @item.IsDead
         </td>
