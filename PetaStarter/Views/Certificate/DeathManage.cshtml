@@ -1,0 +1,199 @@
+﻿@model  DeathCorrCert
+
+@{
+    ViewBag.Title = "Manage";
+}
+
+<h2>Manage</h2>
+
+
+@using (Html.BeginForm(Html.BeginForm(null, null, FormMethod.Post, new { enctype = "multipart/form-data" }))) 
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(model => model.UserID)
+    @Html.HiddenFor(model => model.RegisterTypeID)
+    @Html.HiddenFor(model => model.WEBstatusID)
+
+    <div class="form-horizontal">
+     
+            <h4> Birth and Death Certificate</h4>
+        
+    
+        <hr />
+
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @if (Model?.DeathCorrCertificateID >0)
+        {
+            @Html.HiddenFor(model => model.DeathCorrCertificateID)
+        }
+
+        <table class="table" style="width:300px;height:auto;margin-left:30px">
+            <thead><b>Document Requirements</b></thead>
+            <tr>
+                <td>
+
+                </td>
+                <th>
+                    Sr No
+                </th>
+                <th>
+                    Document Name
+                </th>
+            </tr>
+            @{int i = 1; }
+            @foreach (var item in ViewBag.CertReq)
+            {
+                <tr>
+                    <td></td>
+                    <td>
+                        @i
+                    </td>
+                    <td>
+                        @item.CertificateName
+                    </td>
+                </tr>
+                i++;
+            }
+
+
+        </table>
+        <br /><br />
+        <span>
+            <strong><u>Please fill your form:-</u></strong>
+        </span>
+        <br />
+        <br />
+        <div class="form-group">
+            <label class="control-label col-md-2">Name</label>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.FromName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.FromName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-2">Address</label>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.FromAddress, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.FromAddress, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+         <label class="control-label col-md-2">Birth Of</label>          
+                  <div class="col-md-10">
+                @Html.EditorFor(model => model.BirthOf, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.BirthOf, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">      
+         <label  class="control-label col-md-2">Born On</label>             
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.BornOn, new { htmlAttributes = new { @type="date",@class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.BornOn, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-2">Birth Place</label>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.BirthPlace, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.BirthPlace, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-2">correct Name</label>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.FromWrongName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.FromWrongName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-2">Name Of Father</label>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.NameOfFather, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.NameOfFather, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-2">correct Name Of Father</label>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.InsteadNF, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.InsteadNF, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-2">Name Of Mother</label>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.NameOfMother, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.NameOfMother, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-2">correct Name Of Mother</label>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.InsteadNM, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.InsteadNM, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <label class="control-label col-md-2">Name Of Grand Father</label>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.NameOfGrandFather, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.NameOfGrandFather, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-2"> Name Of Grand Father</label>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.InsteadNGF, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.InsteadNGF, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Name Of Grand Mother</label>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.NameOfGrandMother, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.NameOfGrandMother, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-2">Name Of Grand Mother</label>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.InsteadNGM, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.InsteadNGM, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-2">Birth/Death Name</label>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.BirthDeathName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.BirthDeathName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+    
+      @if (Model.DeathCorrCertificateID == 0)
+      {
+       <div class="form-group">
+          <label class="control-label col-md-2">Upload Documents</label>
+           <div class="col-md-10">
+            <input class="form-control" type="file" id="UploadedFile" name="UploadedFile" />
+             <small>(Upload all your documents in zip folder)</small>
+          </div>
+      </div>
+      }
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "DeathIndex",new { rt = 39 })
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+@Scripts.Render("~/bundles/bootstrap")
+}

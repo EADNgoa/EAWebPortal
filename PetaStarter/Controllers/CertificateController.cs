@@ -154,7 +154,9 @@ namespace PanchayatWebPortal.Controllers
                     Address=rec.Address,
                     BirthDate= (DateTime)rec.BirthDate,
                     BirthPlace=rec.BirthPlace,
+
                     Since= (int)rec.Since,
+
                     NameOfFather=rec.NameOfFather,
                     NameOfMother=rec.NameOfMother,
                     PersonName=rec.PersonName,
@@ -195,7 +197,9 @@ namespace PanchayatWebPortal.Controllers
                             Address= residence.Address,
                             BirthDate= residence.BirthDate,
                             BirthPlace= residence.BirthPlace,
+
                             Since= residence.Since,
+
                             IsDead=residence.IsDead,
                             NameOfFather=residence.NameOfFather,
                             NameOfMother=residence.NameOfMother,
@@ -943,5 +947,258 @@ namespace PanchayatWebPortal.Controllers
             }
             base.Dispose(disposing);
         }
+        public ActionResult IncomeIndex(int? page, int? rt)
+        {
+            var id = User.Identity.GetUserId();
+            ViewBag.RegisterTypeID = rt;
+
+            int pageSize = db.Fetch<int>("Select top 1 RowsPerPage from Config").FirstOrDefault();
+            int pageNumber = (page ?? 1);
+
+            var PC = db.Fetch<IncomeCert>("Select * from IncomeCertificate pc inner join AspNetUsers asu on asu.Id = pc.UserID Inner Join WEbstatus ws on ws.WEBstatusID = pc.WEBstatusID Where RegisterTypeID = @0 and pc.UserID = @1 Order By IncomeCertificateID Desc", rt, id);
+
+            return View(PC.ToPagedList(pageNumber, pageSize));
+
+
+        }
+
+
+        // GET: Clients/Create
+        public ActionResult IncomeManage(int? id, int? rt)
+        {
+            ViewBag.CertReq = db.Fetch<CertificateRequirement>("select * From CertificateRequirements Where RegisterTypeID = @0", rt);
+            var rec = base.BaseCreateEdit<IncomeCertificate>(id, "IncomeCertificateID");
+
+            if (id != null)
+            {
+                IncomeCert res = new IncomeCert()
+                {
+                   Address=rec.Address,
+                    IncomeAmt =(decimal)rec.IncomeAmt,
+                    IncomeCertificateID=rec.IncomeCertificateID,
+                    Inquiry=rec.Inquiry,
+                    RegisterTypeID=(int)rec.RegisterTypeID,
+                    RelationName=rec.RelationName,
+                    ReportNo=rec.ReportNo,
+                    OfficeName =rec.OfficeName,
+                    PurposeOf=rec.PurposeOf,
+                    PersonName=rec.PersonName,
+                    Place=rec.Place,
+                    UserID=rec.UserID,
+                    YearOf=rec.YearOf
+                };
+
+                return View(res);
+            }
+            else
+            {
+                IncomeCert sp = new IncomeCert() { UserID = User.Identity.GetUserId(), RegisterTypeID = (int)rt, WEBstatusID = 1 };
+                return View(sp);
+            }
+
+        }
+
+        // POST: Clients/Create
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult IncomeManage([Bind(Include = "IncomeCertificateID,PersonName,RelationName,Address,IncomeAmt,YearOf,OfficeName,PurposeOf,Inquiry,ReportNo,InquiryDate,Place,PrintDate,UserID,WEBstatusID,RegisterTypeID,UploadedFile")]  IncomeCert income)
+        {
+            using (var transaction = db.GetTransaction())
+            {
+                try
+                {
+                    if (income.UploadedFile != null || income.IncomeCertificateID > 0)
+                    {
+
+                        IncomeCertificate res = new IncomeCertificate()
+                        {
+                            Address = income.Address,
+                            IncomeAmt = income.IncomeAmt,
+                            IncomeCertificateID = income.IncomeCertificateID,
+                            Inquiry = income.Inquiry,
+                            RegisterTypeID = income.RegisterTypeID,
+                            RelationName = income.RelationName,
+                            ReportNo = income.ReportNo,
+                            OfficeName = income.OfficeName,
+                            PurposeOf = income.PurposeOf,
+                            PersonName = income.PersonName,
+                            Place = income.Place,
+                            UserID = income.UserID,
+                            YearOf = income.YearOf,
+                            WEBstatusID=income.WEBstatusID
+                            
+                        };
+                        if (income.IncomeCertificateID == 0)
+                        {
+
+                            string fn = income.UploadedFile.FileName.Substring(income.UploadedFile.FileName.LastIndexOf('\\') + 1);
+                            fn = income.IncomeCertificateID + "_" + fn;
+                            string SavePath = System.IO.Path.Combine(Server.MapPath("~/Images"), fn);
+                            income.UploadedFile.SaveAs(SavePath);
+                            base.BaseSave<IncomeCertificate>(res, income.IncomeCertificateID > 0);
+
+                            var item = new CertSupportDoc { RegisterTypeID = income.RegisterTypeID, CertificateID = res.IncomeCertificateID, DocumentName = fn };
+                            db.Save(item);
+                        }
+                        else
+                        {
+                            //System.Drawing.Bitmap upimg = new System.Drawing.Bitmap(siteTransaction.UploadedFile.InputStream);
+                            //System.Drawing.Bitmap svimg = MyExtensions.CropUnwantedBackground(upimg);
+                            //svimg.Save(System.IO.Path.Combine(Server.MapPath("~/Images"), fn));
+                            base.BaseSave<IncomeCertificate>(res, income.IncomeCertificateID > 0);
+                        }
+
+                        transaction.Complete();
+                    }
+                    return RedirectToAction("IncomeIndex", new { rt = income.RegisterTypeID });
+                }
+                catch (Exception ex)
+                {
+                    db.AbortTransaction();
+                    throw ex;
+                }
+
+
+            }
+
+        }
+        public ActionResult DeathIndex(int? page, int? rt)
+        {
+            var id = User.Identity.GetUserId();
+            ViewBag.RegisterTypeID = rt;
+
+            int pageSize = db.Fetch<int>("Select top 1 RowsPerPage from Config").FirstOrDefault();
+            int pageNumber = (page ?? 1);
+
+            var PC = db.Fetch<DeathCorrCert>("Select * from DeathCorrCertificate pc inner join AspNetUsers asu on asu.Id = pc.UserID Inner Join WEbstatus ws on ws.WEBstatusID = pc.WEBstatusID Where RegisterTypeID = @0 and pc.UserID = @1 Order By DeathCorrCertificateID Desc", rt, id);
+
+            return View(PC.ToPagedList(pageNumber, pageSize));
+
+
+        }
+
+
+        // GET: Clients/Create
+        public ActionResult DeathManage(int? id, int? rt)
+        {
+            ViewBag.CertReq = db.Fetch<CertificateRequirement>("select * From CertificateRequirements Where RegisterTypeID = @0", rt);
+            var rec = base.BaseCreateEdit<DeathCorrCertificate>(id, "DeathCorrCertificateID");
+
+            if (id != null)
+            {
+                DeathCorrCert res = new DeathCorrCert()
+                {
+                  FromAddress=rec.FromAddress,
+                  BirthOf=rec.BirthOf,
+                  BirthPlace=rec.BirthPlace,
+                  WEBstatusID=(int)rec.WEBstatusID,
+                  BornOn=(DateTime)rec.BornOn,
+                  DeathCorrCertificateID=rec.DeathCorrCertificateID,
+                  FromName=rec.FromName,
+                  FromWrongName=rec.FromWrongName,
+                 InsteadFWN=rec.InsteadFWN,
+                 InsteadNF=rec.InsteadNF,
+                 InsteadNGF=rec.InsteadNGF,
+                 RegisterTypeID=(int)rec.RegisterTypeID,
+                 InsteadNGM=rec.InsteadNGM,
+                 InsteadNM=rec.InsteadNM,
+                 NameOfFather=rec.NameOfFather,
+                 NameOfGrandFather=rec.NameOfGrandFather,
+                 NameOfGrandMother=rec.NameOfGrandMother,
+                 NameOfMother=rec.NameOfMother,
+                 TDate=(DateTime)rec.TDate,
+                 BirthDeathName =rec.BirthDeathName,
+                 UserID=rec.UserID
+                 
+                  
+                };
+
+                return View(res);
+            }
+            else
+            {
+                DeathCorrCert sp = new DeathCorrCert() { UserID = User.Identity.GetUserId(), RegisterTypeID = (int)rt, WEBstatusID = 1 };
+                return View(sp);
+            }
+
+        }
+
+        // POST: Clients/Create
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeathManage([Bind(Include = "DeathCorrCertificateID,FromName,FromAddress,TDate,BirthOf,BornOn,BirthPlace,FromWrongName,InsteadFWN,NameOfFather,InsteadNF,NameOfMother,InsteadNM,NameOfGrandMother,InsteadNGM,,NameOfGrandFather,InsteadNGF,BirthDeathName,UserID,WEBstatusID,RegisterTypeID,UploadedFile")]  DeathCorrCert death)
+        {
+            using (var transaction = db.GetTransaction())
+            {
+                try
+                {
+                    if (death.UploadedFile != null || death.DeathCorrCertificateID > 0)
+                    {
+
+                        DeathCorrCertificate res = new DeathCorrCertificate()
+                        {
+                            FromAddress = death.FromAddress,
+                            BirthOf = death.BirthOf,
+                            BirthPlace = death.BirthPlace,
+                            WEBstatusID = death.WEBstatusID,
+                            BornOn = death.BornOn,
+                            DeathCorrCertificateID = death.DeathCorrCertificateID,
+                            FromName = death.FromName,
+                            FromWrongName = death.FromWrongName,
+                            InsteadFWN = death.InsteadFWN,
+                            InsteadNF = death.InsteadNF,
+                            InsteadNGF = death.InsteadNGF,
+                            RegisterTypeID = death.RegisterTypeID,
+                            InsteadNGM = death.InsteadNGM,
+                            InsteadNM = death.InsteadNM,
+                            NameOfFather = death.NameOfFather,
+                            NameOfGrandFather = death.NameOfGrandFather,
+                            NameOfGrandMother = death.NameOfGrandMother,
+                            NameOfMother = death.NameOfMother,
+                            TDate = DateTime.Now,
+                            UserID=death.UserID,
+                            BirthDeathName=death.BirthDeathName,
+                            
+
+                        };
+                        if (death.DeathCorrCertificateID == 0)
+                        {
+
+                            string fn = death.UploadedFile.FileName.Substring(death.UploadedFile.FileName.LastIndexOf('\\') + 1);
+                            fn = death.FromName + "_" + fn;
+                            string SavePath = System.IO.Path.Combine(Server.MapPath("~/Images"), fn);
+                            death.UploadedFile.SaveAs(SavePath);
+                            base.BaseSave<DeathCorrCertificate>(res, death.DeathCorrCertificateID > 0);
+
+                            var item = new CertSupportDoc { RegisterTypeID = death.RegisterTypeID, CertificateID = res.DeathCorrCertificateID, DocumentName = fn };
+                            db.Save(item);
+                        }
+                        else
+                        {
+                            //System.Drawing.Bitmap upimg = new System.Drawing.Bitmap(siteTransaction.UploadedFile.InputStream);
+                            //System.Drawing.Bitmap svimg = MyExtensions.CropUnwantedBackground(upimg);
+                            //svimg.Save(System.IO.Path.Combine(Server.MapPath("~/Images"), fn));
+                            base.BaseSave<DeathCorrCertificate>(res, death.DeathCorrCertificateID > 0);
+                        }
+
+                        transaction.Complete();
+                    }
+                    return RedirectToAction("DeathIndex", new { rt = death.RegisterTypeID });
+                }
+                catch (Exception ex)
+                {
+                    db.AbortTransaction();
+                    throw ex;
+                }
+
+
+            }
+
+        }
     }
+
 }

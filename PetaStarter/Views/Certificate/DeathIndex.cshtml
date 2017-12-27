@@ -1,0 +1,146 @@
+﻿@model PagedList.IPagedList<PanchayatWebPortal.DeathCorrCert>
+@using PagedList.Mvc;
+
+
+<center>
+   
+        <h2 class="section-to-print"><b>Birth and Death Certificate</b></h2>
+
+ 
+
+
+   
+</center>
+
+<p>
+
+    @Html.ActionLink("Create New", "DeathManage",new {rt = ViewBag.RegisterTypeID })
+</p>
+<table class="table">
+    <tr>
+        <th>
+            Sr No
+        </th>
+        <th>
+        Name
+        </th>
+        <th>
+        Address
+        </th>
+        <th>
+           Application Date
+        </th>
+        <th>
+         Birth Of
+        </th>
+        <th>
+           Born On
+        </th>
+        <th>
+       Birth Place
+           
+        </th>
+        <th>
+           Wrong Name
+        </th>
+        <th>
+          Correct name
+        </th>
+        <th>
+           Name Of Father
+        </th>
+        <th>
+           Correct  Name Of Father
+        </th>
+        <th>
+            Name Of Mother 
+        </th>
+        <th>
+           Correct Name Of Mother
+        </th>
+        <th>
+            Name Of Grand Mother
+        </th>
+        <th>
+            Correct  Name Of Grand Mother
+        </th>
+        <td>
+            Name Of Grand Father
+        </td>
+        <td>
+            Correct  Name Of Grand Father
+        </td>
+        
+      
+        <th></th>
+
+    </tr>
+    @{int i = 1; }
+@foreach (var item in Model) {
+    <tr>
+        <td>
+           @i
+        </td>
+     
+        <td>
+            @item.FromName
+        </td>
+        <td>
+            @item.FromAddress
+        </td>
+        <td>
+            @item.TDate
+        </td>
+        <td>
+            @item.BirthOf
+        </td>
+        <td>
+            @item.BornOn
+        </td>
+        <td>
+            @item.BirthPlace
+        </td>
+        <td>
+            @item.FromWrongName
+        </td>
+        <td>
+            @item.InsteadFWN
+        </td>
+        <td>
+            @item.NameOfFather
+        </td>
+        <td>
+            @item.InsteadNF
+        </td>
+        <td>
+            @item.NameOfMother
+        </td>
+        <td>
+            @item.InsteadNM
+
+        </td>
+        <td>
+            @item.NameOfGrandMother
+        </td>
+        <td>
+            @item.InsteadNGM
+        </td>
+        <td>
+            @item.NameOfGrandFather
+        </td>
+        <td>
+            @item.InsteadNGF
+        </td>
+       
+        <td>
+            @Html.ActionLink("Edit", "DeathManage", new { id=item.DeathCorrCertificateID,rt = item.RegisterTypeID }) 
+        </td>
+    </tr>
+    i++;
+}
+
+</table>
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+@Html.PagedListPager(Model, page => Url.Action("Index",
+    new { page}))
