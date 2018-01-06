@@ -49,7 +49,6 @@
     <Property Name="ParentElementType" Value="SqlTable" />
     <Property Name="NewName" Value="OccupancyCertDetailsID" />
   </Operation>
-
   <Operation Name="Rename Refactor" Key="288d8d58-ccaa-45f9-854d-08fd7902d368" ChangeDateTime="12/19/2017 06:30:37">
     <Property Name="ElementName" Value="[dbo].[IncomeCertificate].[Id]" />
     <Property Name="ElementType" Value="SqlSimpleColumn" />
@@ -133,7 +132,6 @@
     <Property Name="ParentElementName" Value="[dbo].[CharacterCertificate]" />
     <Property Name="ParentElementType" Value="SqlTable" />
     <Property Name="NewName" Value="CharacterID" />
-
   </Operation>
   <Operation Name="Rename Refactor" Key="2b60f223-dc69-48ba-bee9-8149cd62316d" ChangeDateTime="12/21/2017 08:54:20">
     <Property Name="ElementName" Value="[dbo].[BND].[Id]" />
@@ -155,5 +153,26 @@
     <Property Name="ParentElementName" Value="[dbo].[BND]" />
     <Property Name="ParentElementType" Value="SqlTable" />
     <Property Name="NewName" Value="NameOfDistrict" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="8e41d168-dc3d-41fc-8d10-6ba0bcbf7367" ChangeDateTime="01/06/2018 09:13:08">
+    <Property Name="ElementName" Value="[dbo].[Notice].[Id]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Notice]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="NoticeID" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="4377b770-b9d4-44ce-b095-ce5d1da29a5e" ChangeDateTime="01/06/2018 09:17:25">
+    <Property Name="ElementName" Value="[dbo].[Notice].[CopyTo]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Notice]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="ToAddress" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="17f30143-3ef6-4156-9dae-338597286f1d" ChangeDateTime="01/06/2018 09:17:36">
+    <Property Name="ElementName" Value="[dbo].[Notice].[UserID]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Notice]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="CopyTo" />
   </Operation>
 </Operations>
