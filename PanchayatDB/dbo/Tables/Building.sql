@@ -8,6 +8,8 @@
     [NoOfRes]             VARCHAR (50)    NULL,
     [DateOfRes]           DATE            NULL,
     [DateOfPermision]     DATE            NULL,
+ [SanitationFees]       DECIMAL (18, 2) NULL,
+
     [EstimatedCost]       DECIMAL (18, 2) NULL,
     [AmountPaid]          DECIMAL (15, 2) NULL,
     [DateOfCompletion]    DATE            NULL,
