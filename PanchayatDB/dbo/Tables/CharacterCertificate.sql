@@ -4,18 +4,16 @@
     [PersonName] VARCHAR(100) NULL, 
 	    [Place] VARCHAR(100) NULL, 
 
-    [Age] INT NULL, 
-		 [Tdate] DATE NULL, 
 
+    [Age] INT NULL, 
+	[Tdate] DATE NULL, 
     [FatherName] VARCHAR(100) NULL, 
     [MotherName] VARCHAR(100) NULL, 
 	[Village]        VARCHAR (150)  NULL,
-
     [Address] VARCHAR(200) NULL, 
     [WardOf] VARCHAR(100) NULL, 
     [KnownYears] INT NULL,
     [PurposeOf] VARCHAR(200) NULL, 
-
 	[UserID] NVARCHAR(128) NUll,
     [WEBstatusID] INT NULL, 
     [RegisterTypeID] INT NULL, 
