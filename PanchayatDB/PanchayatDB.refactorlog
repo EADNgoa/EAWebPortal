@@ -175,4 +175,46 @@
     <Property Name="ParentElementType" Value="SqlTable" />
     <Property Name="NewName" Value="CopyTo" />
   </Operation>
+  <Operation Name="Rename Refactor" Key="a32de564-21f5-4eb1-8853-e258d63972b5" ChangeDateTime="01/07/2018 09:19:08">
+    <Property Name="ElementName" Value="[dbo].[Holidays].[Id]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Holidays]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="HolidayID" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="f36406dc-1613-41d1-a2c2-82f16fa50597" ChangeDateTime="01/07/2018 09:22:08">
+    <Property Name="ElementName" Value="[dbo].[LeaveType].[Id]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[LeaveType]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="LeaveTypeID" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="a0cda989-1024-4f55-87a7-e54f10833e86" ChangeDateTime="01/07/2018 09:23:48">
+    <Property Name="ElementName" Value="[dbo].[LeaveEntitlement].[Id]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[LeaveEntitlement]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="LeaveEntitlementID" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="c51f7b8f-92c0-4298-ad75-a2fbe2d8d554" ChangeDateTime="01/07/2018 09:28:51">
+    <Property Name="ElementName" Value="[dbo].[LeaveApplication].[Id]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[LeaveApplication]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="LeaveApplicationID" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="9c3b3f5d-ab16-43ef-8860-108ffb1ecd8d" ChangeDateTime="01/07/2018 09:36:53">
+    <Property Name="ElementName" Value="[dbo].[LeaveBalance].[Id]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[LeaveBalance]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="LeaveBalanceID" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="ca18d18c-f3dd-499e-b786-5845f50e182f" ChangeDateTime="01/07/2018 11:25:40">
+    <Property Name="ElementName" Value="[dbo].[CharacterCertificate].[PersonName]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[CharacterCertificate]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="Place" />
+  </Operation>
 </Operations>

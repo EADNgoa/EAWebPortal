@@ -7,5 +7,6 @@
     [HouseTax] DECIMAL(18, 2) NULL, 
     [GarbageTax] DECIMAL(18, 2) NULL, 
  
+    [NameOfTheOwner] VARCHAR(100) NULL, 
     CONSTRAINT [FK_OccupancyCertDetails_occupancydetails] FOREIGN KEY ([OccupationCertificateID]) REFERENCES [OccupationCertificate]([OccupationCertificateID])
 )

@@ -1,6 +1,8 @@
 ﻿CREATE TABLE [dbo].[DeathCorrCertificate]
 (
 	[DeathCorrCertificateID] INT NOT NULL PRIMARY KEY IDENTITY, 
+	[BirthDeathName] VARCHAR(100) NULL, 
+
     [FromName] VARCHAR(100) NULL, 
     [FromAddress] VARCHAR(200) NULL, 
     [TDate] DATE NULL, 
