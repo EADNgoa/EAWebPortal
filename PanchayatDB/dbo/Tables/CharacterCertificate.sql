@@ -2,7 +2,9 @@
 (
 	[CharacterID] INT NOT NULL PRIMARY KEY IDENTITY, 
     [PersonName] VARCHAR(100) NULL, 
-	[Place] VARCHAR(100) NULL, 
+	    [Place] VARCHAR(100) NULL, 
+
+
     [Age] INT NULL, 
 	[Tdate] DATE NULL, 
     [FatherName] VARCHAR(100) NULL, 
