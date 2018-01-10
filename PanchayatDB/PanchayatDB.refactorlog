@@ -217,4 +217,11 @@
     <Property Name="ParentElementType" Value="SqlTable" />
     <Property Name="NewName" Value="Place" />
   </Operation>
+  <Operation Name="Rename Refactor" Key="b1f84131-50e4-40f5-9fa5-b39ff9ced122" ChangeDateTime="01/09/2018 09:17:02">
+    <Property Name="ElementName" Value="[dbo].[LeaveApplication].[Status]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[LeaveApplication]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="StatusID" />
+  </Operation>
 </Operations>
